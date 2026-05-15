@@ -1,0 +1,954 @@
+\documentclass[12pt,a4paper]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[a4paper, left=2.5cm, right=2.5cm, top=35mm, bottom=20mm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage[hidelinks]{hyperref}
+\usepackage{listings}
+\usepackage{eso-pic}
+\usepackage{colortbl}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric}
+\usepackage{pgfgantt}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable}
+
+% ─── Colores ───────────────────────────────────────────────────────────────
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codeblue}{rgb}{0.25,0.5,0.75}
+\definecolor{azulUTA}{RGB}{0,70,127}
+\definecolor{rojoUTA}{RGB}{180,30,30}
+\definecolor{verdeCritico}{RGB}{200,240,200}
+\definecolor{amarilloHolgura}{RGB}{255,250,200}
+\definecolor{azulClaro}{RGB}{220,235,250}
+\definecolor{grisTabla}{RGB}{245,245,245}
+
+% ─── Estilo código R ───────────────────────────────────────────────────────
+\lstdefinestyle{rstyle}{
+  language=R,
+  commentstyle=\color{codegreen},
+  keywordstyle=\color{codeblue}\bfseries,
+  numberstyle=\tiny\color{codegray},
+  stringstyle=\color{codegreen},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  frame=single
+}
+\lstset{style=rstyle}
+
+% ─── Cajas de resultado ────────────────────────────────────────────────────
+\newtcolorbox{cajares}{
+  colback=azulClaro, colframe=azulUTA,
+  fonttitle=\bfseries, title=Resultado,
+  arc=4pt, boxrule=1pt
+}
+\newtcolorbox{cajaobs}{
+  colback=grisTabla, colframe=black!40,
+  fonttitle=\bfseries\color{azulUTA}, title=Observaci\'{o}n,
+  arc=4pt, boxrule=0.8pt
+}
+
+% ─── Fondo UTA ─────────────────────────────────────────────────────────────
+\newcommand\BackgroundPic{
+  \put(0,5){
+    \parbox[b][\paperheight]{\paperwidth}{
+      \vfill
+      \centering
+      \includegraphics[width=\paperwidth,height=\paperheight,
+      keepaspectratio]{images/FondoUTA-SW}
+      \vfill
+    }
+  }
+}
+
+% ─── Portada ───────────────────────────────────────────────────────────────
+\title{
+  \vspace{-3cm}
+  \begin{center}
+    \begin{minipage}{0.13\textwidth}
+      \includegraphics[width=1.1\textwidth]{images/Logo_Uta}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.7\textwidth}
+      \begin{center}
+        \large \textbf{UNIVERSIDAD T\'{E}CNICA DE AMBATO} \\
+        \normalsize Facultad de Ingenier\'{i}a en Sistemas, Electr\'{o}nica e Industrial \\
+        \normalsize Carrera de Software \\
+        \vspace{0.2cm}
+        \normalsize \textbf{Investigaci\'{o}n de Operaciones}
+      \end{center}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.13\textwidth}
+      \includegraphics[width=1.1\textwidth]{images/Logo_sistemas}
+    \end{minipage}
+  \end{center}
+
+  \vspace{1cm}
+  \rule{\linewidth}{2pt}
+  \vspace{0.2cm}
+
+  \begin{center}
+    \Large \textbf{Optimizaci\'{o}n de Distribuci\'{o}n y Planificaci\'{o}n Temporal en Planta Embotelladora de Agua Purificada} \\
+  \end{center}
+
+  \vspace{0.2cm}
+  \rule{\linewidth}{2pt}
+  \vspace{1cm}
+
+  \begin{center}
+    \large \textbf{Proyecto Acad\'{e}mico} \\
+    Segundo Parcial
+  \end{center}
+}
+
+\author{
+  \large
+  \begin{tabular}{ll}
+    \textbf{Estudiantes:} & Cobos Taco Alison Marcela \\
+    & Lagua Flores Henry Daniel \\
+    & Pe\~{n}a Aguilar Javier Aldair \\
+    & Supe Palate Pedro Daniel \\
+  \end{tabular}
+}
+
+\date{
+  \large
+  \begin{tabular}{ll}
+    \textbf{Docente:}  & Mat. Inti Becerra, Mg. \\
+    \textbf{Fecha:}    & Mayo 2026 \\
+    \textbf{Per\'{i}odo:} & Enero 2026 -- Julio 2026 \\
+    \textbf{Lugar:}    & Ambato -- Ecuador
+  \end{tabular}
+}
+
+% ════════════════════════════════════════════════════════════════════════════
+\begin{document}
+
+\maketitle
+\newpage
+
+% ─── RESUMEN ───────────────────────────────────────────────────────────────
+\section*{Resumen}
+\addcontentsline{toc}{section}{Resumen}
+
+El presente proyecto aplica t\'{e}cnicas de Investigaci\'{o}n de Operaciones para optimizar
+la distribuci\'{o}n y planificaci\'{o}n temporal de una planta embotelladora de agua purificada.
+En la primera parte, se formul\'{o} y resolvi\'{o} un \textbf{modelo de transporte} (Programaci\'{o}n
+Lineal) para minimizar los costos de distribuci\'{o}n desde 3 plantas hacia 4 centros de
+distribuci\'{o}n, obteniendo un \textbf{costo m\'{i}nimo de \$1\,180 por semana}. En la segunda
+parte, se aplic\'{o} \textbf{PERT/CPM} al proyecto de instalaci\'{o}n de una nueva red de
+distribuci\'{o}n (7 actividades), determinando que la duraci\'{o}n total es de \textbf{20 d\'{i}as
+h\'{a}biles}, cumpliendo ampliamente con el l\'{i}mite de 40 d\'{i}as establecido, con una holgura
+global de 20 d\'{i}as. La ruta cr\'{i}tica identificada es \textbf{A $\to$ B $\to$ D $\to$ E $\to$ F $\to$ G}.
+
+\tableofcontents
+\newpage
+\AddToShipoutPicture{\BackgroundPic}
+
+% ════════════════════════════════════════════════════════════════════════════
+\section{Informaci\'{o}n general del proyecto}
+
+\subsection{Datos b\'{a}sicos}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|l|}
+    \hline
+    \textbf{Asignatura}              & Investigaci\'{o}n de Operaciones \\
+    \hline
+    \textbf{Plazo de entrega}        & 4 semanas \\
+    \hline
+    \textbf{Formato de entrega}      & Informe t\'{e}cnico + C\'{o}digo R \\
+    \hline
+    \textbf{Herramienta obligatoria} & R (lpSolve, igraph, ggplot2) \\
+    \hline
+    \textbf{Tipo de trabajo}         & Grupal \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\subsection{Objetivos del proyecto}
+
+Al completar este proyecto, el estudiante es capaz de:
+
+\begin{enumerate}
+  \item Formular un problema de transporte como un modelo de Programaci\'{o}n Lineal.
+  \item Implementar la soluci\'{o}n en R con el paquete \texttt{lpSolve}.
+  \item Calcular tiempos tempranos, tard\'{i}os, holguras y ruta cr\'{i}tica con PERT/CPM.
+  \item Interpretar los resultados en t\'{e}rminos de costos y tiempos.
+  \item Presentar conclusiones ejecutivas con soporte gr\'{a}fico.
+\end{enumerate}
+
+\subsection{Contexto del problema}
+
+Una planta embotelladora de agua purificada tiene \textbf{3 centros de producci\'{o}n}
+(Plantas A, B y C) y debe abastecer a \textbf{4 centros de distribuci\'{o}n (CD1--CD4)}.
+Adicionalmente, debe ejecutar un proyecto de instalaci\'{o}n de una nueva red de
+distribuci\'{o}n compuesto por 7 actividades secuenciales y paralelas.
+
+\newpage
+
+% ════════════════════════════════════════════════════════════════════════════
+\section{Parte 1: Modelo de transporte}
+
+\subsection{Descripci\'{o}n del problema}
+
+Se debe determinar cu\'{a}ntos miles de litros enviar desde cada planta a cada CD para
+\textbf{minimizar el costo total de transporte}, respetando las capacidades m\'{a}ximas de
+producci\'{o}n de cada planta y satisfaciendo la demanda m\'{i}nima de cada centro de
+distribuci\'{o}n.
+
+\subsection{Datos proporcionados}
+
+\subsubsection{Capacidad de producci\'{o}n (miles de litros/semana)}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+    \textbf{Planta} & \textbf{Capacidad} \\
+    \hline
+    A & 50 \\
+    B & 60 \\
+    C & 40 \\
+    \hline
+    \textbf{Total} & \textbf{150} \\
+    \hline
+  \end{tabular}
+  \hspace{2cm}
+  \begin{tabular}{|c|c|}
+    \hline
+    \textbf{CD} & \textbf{Demanda} \\
+    \hline
+    CD1 & 30 \\
+    CD2 & 45 \\
+    CD3 & 35 \\
+    CD4 & 40 \\
+    \hline
+    \textbf{Total} & \textbf{150} \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\begin{cajaobs}
+La oferta total (150) es igual a la demanda total (150): el problema est\'{a}
+\textbf{balanceado}, por lo que no es necesario agregar una planta o CD ficticio.
+\end{cajaobs}
+
+\subsubsection{Costos de transporte (\$/miles de litros)}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|cccc|}
+    \hline
+    \textbf{Origen $\backslash$ Destino} & \textbf{CD1} & \textbf{CD2} & \textbf{CD3} & \textbf{CD4} \\
+    \hline
+    Planta A & 8  & 6 & 10 & 9 \\
+    Planta B & 9  & 12 & 13 & 7\\
+    Planta C & 14 & 9  & 16 & 5 \\
+    \hline
+  \end{tabular}
+  \caption{Costos de transporte.}
+\end{table}
+
+\subsection{Formulaci\'{o}n matem\'{a}tica}
+
+\textbf{Variables de decisi\'{o}n:}
+\[
+  x_{ij} = \text{miles de litros enviados desde Planta } i \text{ hacia CD } j
+\]
+donde $i \in \{A, B, C\}$ y $j \in \{1, 2, 3, 4\}$. Se tienen $3 \times 4 = 12$ variables de decisi\'{o}n.
+
+\medskip
+\textbf{Funci\'{o}n objetivo --- Minimizar costo total:}
+\[
+  \min Z = \sum_{i \in \{A,B,C\}} \sum_{j=1}^{4} c_{ij}\, x_{ij}
+\]
+
+Expandida:
+\begin{align*}
+  \min Z = \; & 8x_{A1} + 6x_{A2} + 10x_{A3} + 9x_{A4} \\
+             + \; & 9x_{B1} + 12x_{B2} + 13x_{B3} + 7x_{B4} \\
+             + \; & 14x_{C1} + 9x_{C2} + 16x_{C3} + 5x_{C4}
+\end{align*}
+
+\textbf{Restricciones de oferta} (cada planta no puede superar su capacidad):
+\begin{align}
+  x_{A1} + x_{A2} + x_{A3} + x_{A4} &\leq 50 \quad \text{(Planta A)} \\
+  x_{B1} + x_{B2} + x_{B3} + x_{B4} &\leq 60 \quad \text{(Planta B)} \\
+  x_{C1} + x_{C2} + x_{C3} + x_{C4} &\leq 40 \quad \text{(Planta C)}
+\end{align}
+
+\textbf{Restricciones de demanda} (cada CD debe recibir al menos su demanda):
+\begin{align}
+  x_{A1} + x_{B1} + x_{C1} &\geq 30 \quad \text{(CD1)} \\
+  x_{A2} + x_{B2} + x_{C2} &\geq 45 \quad \text{(CD2)} \\
+  x_{A3} + x_{B3} + x_{C3} &\geq 35 \quad \text{(CD3)} \\
+  x_{A4} + x_{B4} + x_{C4} &\geq 40 \quad \text{(CD4)}
+\end{align}
+
+\textbf{No negatividad:}
+\[
+  x_{ij} \geq 0 \quad \forall\, i \in \{A,B,C\},\; j \in \{1,2,3,4\}
+\]
+
+\subsection{Soluci\'{o}n \'{o}ptima obtenida}
+
+\begin{cajares}
+\textbf{Costo m\'{i}nimo total: \$1\,180 por semana} \quad
+(Estado del solver: 0 = \'{o}ptimo encontrado)
+\end{cajares}
+
+\subsubsection{Matriz de env\'{i}os \'{o}ptimos}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|c|c|c|c|c|}
+    \hline
+    \rowcolor{azulClaro}
+    \textbf{Planta $\backslash$ CD} & \textbf{CD1} & \textbf{CD2} & \textbf{CD3} & \textbf{CD4} & \textbf{Total enviado} \\
+    \hline
+    Planta A & 0  & \cellcolor{verdeCritico}\textbf{45} & \cellcolor{verdeCritico}\textbf{5}  & 0  & 50 \\
+    \hline
+    Planta B & \cellcolor{verdeCritico}\textbf{30} & 0  & \cellcolor{verdeCritico}\textbf{30} & 0  & 60 \\
+    \hline
+    Planta C & 0  & 0  & 0  & \cellcolor{verdeCritico}\textbf{40} & 40 \\
+    \hline
+    \rowcolor{grisTabla}
+    \textbf{Total recibido} & \textbf{30} & \textbf{45} & \textbf{35} & \textbf{40} & \textbf{150} \\
+    \hline
+    \textbf{Demanda} & 30 & 45 & 35 & 40 & 150 \\
+    \hline
+  \end{tabular}
+  \caption{Matriz de env\'{i}os \'{o}ptimos (miles de litros/semana). Celdas en verde: rutas activas.}
+\end{table}
+
+\subsubsection{Desglose de costos por ruta activa}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|c|c|c|}
+    \hline
+    \rowcolor{azulClaro}
+    \textbf{Ruta} & \textbf{Cantidad (miles L)} & \textbf{Costo unitario (\$)} & \textbf{Costo total (\$)} \\
+    \hline
+    Planta A $\to$ CD2 & 45 & 6  & 270 \\
+    \hline
+    Planta A $\to$ CD3 & 5  & 10 & 50  \\
+    \hline
+    Planta B $\to$ CD1 & 30 & 9  & 270 \\
+    \hline
+    Planta B $\to$ CD3 & 30 & 13 & 390 \\
+    \hline
+    Planta C $\to$ CD4 & 40 & 5  & 200 \\
+    \hline
+    \rowcolor{grisTabla}
+    \textbf{Total} & \textbf{150} & --- & \textbf{1\,180} \\
+    \hline
+  \end{tabular}
+  \caption{5 rutas activas de 12 posibles.}
+\end{table}
+
+\subsubsection{Gr\'{a}fico de flujos de distribuci\'{o}n}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+  planta/.style={rectangle, draw=azulUTA, fill=azulClaro, thick,
+                 minimum width=2.4cm, minimum height=0.9cm,
+                 font=\small\bfseries, align=center},
+  cd/.style={rectangle, draw=rojoUTA, fill=verdeCritico!70, thick,
+             minimum width=2.4cm, minimum height=0.9cm,
+             font=\small\bfseries, align=center},
+  flecha/.style={-{Stealth[length=6pt]}, thick, azulUTA},
+  etiq/.style={font=\scriptsize, fill=white, inner sep=1.5pt}
+]
+\node[planta] (A) at (0, 3.5) {Planta A\\cap: 50};
+\node[planta] (B) at (0, 1.8) {Planta B\\cap: 60};
+\node[planta] (C) at (0, 0)   {Planta C\\cap: 40};
+
+\node[cd] (CD1) at (7, 4.5) {CD1\\dem: 30};
+\node[cd] (CD2) at (7, 3)   {CD2\\dem: 45};
+\node[cd] (CD3) at (7, 1.5) {CD3\\dem: 35};
+\node[cd] (CD4) at (7, 0)   {CD4\\dem: 40};
+
+\draw[flecha] (A) -- node[etiq, above=2pt] {45 mil. L --- \$270} (CD2);
+\draw[flecha] (A) -- node[etiq, below=2pt] {5 mil. L --- \$50}   (CD3);
+\draw[flecha] (B) -- node[etiq, above=2pt] {30 mil. L --- \$270} (CD1);
+\draw[flecha] (B) -- node[etiq, below=2pt] {30 mil. L --- \$390} (CD3);
+\draw[flecha] (C) -- node[etiq, below=2pt] {40 mil. L --- \$200} (CD4);
+\end{tikzpicture}
+\caption{Flujo \'{o}ptimo de distribuci\'{o}n. Cada flecha indica miles de litros enviados y el costo parcial.}
+\end{figure}
+
+\subsubsection{An\'{a}lisis de sensibilidad}
+
+\textbf{Escenario: demanda de CD4 aumenta de 40 a 50 miles de litros.}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|c|c|}
+    \hline
+    \rowcolor{azulClaro}
+    & \textbf{Escenario base} & \textbf{CD4 demanda = 50} \\
+    \hline
+    Oferta total     & 150 & 150 \\
+    Demanda total    & 150 & 160 \\
+    Balance          & Balanceado & \textbf{Infactible} \\
+    Costo m\'{i}nimo (\$/sem) & 1\,180 & No existe soluci\'{o}n \\
+    \hline
+  \end{tabular}
+  \caption{Resultado del an\'{a}lisis de sensibilidad.}
+\end{table}
+
+El sistema se vuelve \textbf{infactible} porque la capacidad total de producci\'{o}n (150)
+es insuficiente para cubrir la nueva demanda (160). Se requieren al menos
+\textbf{10 miles de litros adicionales} de capacidad instalada, ya sea ampliando
+la Planta C (ruta m\'{a}s barata hacia CD4, \$5) o incorporando una nueva fuente de suministro.
+
+\subsection{Verificaci\'{o}n de restricciones}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    \rowcolor{azulClaro}
+    \textbf{Planta} & \textbf{Enviado} & \textbf{Capacidad} & \textbf{Sobrante} & \textbf{Cumple?} \\
+    \hline
+    A & 50 & 50 & 0 & \textcolor{green!60!black}{\checkmark} \\
+    B & 60 & 60 & 0 & \textcolor{green!60!black}{\checkmark} \\
+    C & 40 & 40 & 0 & \textcolor{green!60!black}{\checkmark} \\
+    \hline
+  \end{tabular}
+  \hspace{0.5cm}
+  \begin{tabular}{|c|c|c|c|}
+    \hline
+    \rowcolor{azulClaro}
+    \textbf{CD} & \textbf{Recibido} & \textbf{Demanda} & \textbf{Cumple?} \\
+    \hline
+    CD1 & 30 & 30 & \textcolor{green!60!black}{\checkmark} \\
+    CD2 & 45 & 45 & \textcolor{green!60!black}{\checkmark} \\
+    CD3 & 35 & 35 & \textcolor{green!60!black}{\checkmark} \\
+    CD4 & 40 & 40 & \textcolor{green!60!black}{\checkmark} \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\subsection{Interpretaci\'{o}n de resultados}
+
+La \textbf{Planta B} es la que env\'{i}a mayor volumen semanal con 60\,000 litros (40\,\% del total), cubriendo CD1 y CD3 con costos competitivos de \$9 y \$13 respectivamente; la ruta de mayor volumen individual es \textbf{Planta A $\to$ CD2} con 45 miles de litros, aprovechando el menor costo unitario de toda la tabla (\$6), mientras que la Planta A tambi\'{e}n env\'{i}a 5 miles de litros a CD3 para completar su capacidad. La \textbf{Planta C} concentra toda su producci\'{o}n (40 miles de litros) exclusivamente en CD4 al tener el costo m\'{a}s bajo de la tabla hacia ese destino (\$5), siendo sus costos hacia los dem\'{a}s destinos notablemente elevados (\$14, \$9 y \$16), raz\'{o}n por la cual el modelo la especializa en esa \'{u}nica ruta eficiente. Las 7 rutas inactivas (A$\to$CD1, A$\to$CD4, B$\to$CD2, B$\to$CD4, C$\to$CD1, C$\to$CD2, C$\to$CD3) quedan fuera de la soluci\'{o}n \'{o}ptima porque sus costos resultan mayores que las alternativas disponibles. Finalmente, si la demanda de CD4 aumentara a 50 miles de litros, el problema se volver\'{i}a \textbf{infactible} al superar la demanda total (160) a la capacidad total de producci\'{o}n (150), requiri\'{e}ndose ampliar capacidad o renegociar contratos con alguno de los centros de distribuci\'{o}n.
+
+\newpage
+
+% ════════════════════════════════════════════════════════════════════════════
+\section{Parte 2: Gesti\'{o}n del proyecto (PERT/CPM)}
+
+\subsection{Descripci\'{o}n del problema}
+
+La empresa debe ejecutar un proyecto de instalaci\'{o}n de una nueva red de
+distribuci\'{o}n con \textbf{7 actividades}. El proyecto debe durar m\'{a}ximo
+\textbf{40 d\'{i}as h\'{a}biles} (8 semanas).
+
+\subsection{Datos del proyecto}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|l|c|l|}
+    \hline
+    \textbf{Actividad} & \textbf{Descripci\'{o}n} & \textbf{Duraci\'{o}n (d\'{i}as)} & \textbf{Predecesor(es)} \\
+    \hline
+    A & Dise\~{n}o de ruta       & 5 & --- \\
+    B & Compra de v\'{a}lvulas   & 3 & A \\
+    C & Instalaci\'{o}n en CD1   & 4 & B \\
+    D & Instalaci\'{o}n en CD2   & 6 & B \\
+    E & Pruebas de flujo          & 2 & C, D \\
+    F & Capacitaci\'{o}n         & 3 & E \\
+    G & Inicio de operaci\'{o}n  & 1 & F \\
+    \hline
+  \end{tabular}
+  \caption{Actividades del proyecto de instalaci\'{o}n de red de distribuci\'{o}n.}
+\end{table}
+
+\subsection{Diagrama de red}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+  nodo/.style={circle, draw=azulUTA, fill=azulClaro, thick,
+               minimum size=1cm, font=\bfseries\small},
+  critico/.style={circle, draw=rojoUTA, fill=red!15, thick,
+                  minimum size=1cm, font=\bfseries\small},
+  flechacrit/.style={-{Stealth[length=7pt]}, very thick, red!70!black},
+  flechanorm/.style={-{Stealth[length=7pt]}, thick, azulUTA!70},
+  dur/.style={font=\scriptsize\bfseries, fill=white, inner sep=2pt}
+]
+\node[critico] (A) at (0,0)    {A};
+\node[critico] (B) at (2.5,0)  {B};
+\node[nodo]    (C) at (5,1.8)  {C};
+\node[critico] (D) at (5,-1.8) {D};
+\node[critico] (E) at (7.5,0)  {E};
+\node[critico] (F) at (10,0)   {F};
+\node[critico] (G) at (12.5,0) {G};
+
+\draw[flechacrit] (A) -- node[dur,above]{5 d} (B);
+\draw[flechacrit] (B) -- node[dur,below left]{3 d} (D);
+\draw[flechacrit] (D) -- node[dur,below right]{6 d} (E);
+\draw[flechacrit] (E) -- node[dur,above]{2 d} (F);
+\draw[flechacrit] (F) -- node[dur,above]{3 d} (G);
+\draw[flechanorm] (B) -- node[dur,above left]{3 d} (C);
+\draw[flechanorm] (C) -- node[dur,above right]{4 d} (E);
+
+\node[critico, minimum size=0.5cm] at (3,-3.2) {};
+\node[font=\scriptsize] at (4.7,-3.2) {Actividad cr\'{i}tica};
+\node[nodo, minimum size=0.5cm] at (7,-3.2) {};
+\node[font=\scriptsize] at (8.7,-3.2) {Actividad no cr\'{i}tica};
+\end{tikzpicture}
+\caption{Diagrama de red PERT/CPM. Rojo: ruta cr\'{i}tica A$\to$B$\to$D$\to$E$\to$F$\to$G.}
+\end{figure}
+
+\subsection{C\'{a}lculo de tiempos tempranos (Forward Pass)}
+
+El \textbf{tiempo de inicio m\'{a}s temprano} (TE) es el m\'{a}ximo de los tiempos de
+finalizaci\'{o}n m\'{a}s tempranos de sus predecesores. El \textbf{tiempo de finalizaci\'{o}n
+m\'{a}s temprano} (TF) es TE $+$ duraci\'{o}n.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|l|c|c|c|l|}
+    \hline
+    \rowcolor{azulClaro}
+    \textbf{Act.} & \textbf{Descripci\'{o}n} & \textbf{Dur.} & \textbf{TE} & \textbf{TF} & \textbf{C\'{a}lculo} \\
+    \hline
+    A & Dise\~{n}o de ruta     & 5 & 0  & 5  & Inicio del proyecto \\
+    B & Compra de v\'{a}lvulas & 3 & 5  & 8  & TE = TF(A) = 5 \\
+    C & Instalaci\'{o}n CD1    & 4 & 8  & 12 & TE = TF(B) = 8 \\
+    D & Instalaci\'{o}n CD2    & 6 & 8  & 14 & TE = TF(B) = 8 \\
+    E & Pruebas de flujo        & 2 & 14 & 16 & TE = max(TF(C), TF(D)) = max(12,14) = 14 \\
+    F & Capacitaci\'{o}n       & 3 & 16 & 19 & TE = TF(E) = 16 \\
+    G & Inicio operaci\'{o}n   & 1 & 19 & 20 & TE = TF(F) = 19 \\
+    \hline
+  \end{tabular}
+  \caption{Forward Pass: tiempos de inicio y finalizaci\'{o}n m\'{a}s tempranos (d\'{i}as).}
+\end{table}
+
+\begin{cajares}
+\textbf{Duraci\'{o}n total del proyecto: 20 d\'{i}as h\'{a}biles} (TF de la \'{u}ltima actividad G).
+\end{cajares}
+
+\subsection{C\'{a}lculo de tiempos tard\'{i}os (Backward Pass)}
+
+El \textbf{tiempo de finalizaci\'{o}n m\'{a}s tard\'{i}o} (TFL) de la \'{u}ltima actividad es
+igual a la duraci\'{o}n del proyecto (20). Para las dem\'{a}s, TFL = m\'{i}nimo de los TL de
+sus sucesores. El \textbf{tiempo de inicio m\'{a}s tard\'{i}o} (TL) es TFL $-$ duraci\'{o}n.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|l|c|c|c|l|}
+    \hline
+    \rowcolor{azulClaro}
+    \textbf{Act.} & \textbf{Descripci\'{o}n} & \textbf{Dur.} & \textbf{TL} & \textbf{TFL} & \textbf{C\'{a}lculo} \\
+    \hline
+    G & Inicio operaci\'{o}n   & 1 & 19 & 20 & TFL = 20 (fin proyecto) \\
+    F & Capacitaci\'{o}n       & 3 & 16 & 19 & TFL = TL(G) = 19 \\
+    E & Pruebas de flujo        & 2 & 14 & 16 & TFL = TL(F) = 16 \\
+    D & Instalaci\'{o}n CD2    & 6 & 8  & 14 & TFL = TL(E) = 14 \\
+    C & Instalaci\'{o}n CD1    & 4 & 10 & 14 & TFL = TL(E) = 14 \\
+    B & Compra de v\'{a}lvulas & 3 & 5  & 8  & TFL = min(TL(C), TL(D)) = min(10,8) = 8 \\
+    A & Dise\~{n}o de ruta     & 5 & 0  & 5  & TFL = TL(B) = 5 \\
+    \hline
+  \end{tabular}
+  \caption{Backward Pass: tiempos de inicio y finalizaci\'{o}n m\'{a}s tard\'{i}os (d\'{i}as).}
+\end{table}
+
+\subsection{C\'{a}lculo de holguras y ruta cr\'{i}tica}
+
+\[
+  H = TL - TE \qquad \text{(actividad cr\'{i}tica si } H = 0\text{)}
+\]
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|l|c|c|c|c|c|c|}
+    \hline
+    \rowcolor{azulClaro}
+    \textbf{Act.} & \textbf{Descripci\'{o}n} & \textbf{Dur.} & \textbf{TE} & \textbf{TF} &
+    \textbf{TL} & \textbf{Holgura} & \textbf{Cr\'{i}tica?} \\
+    \hline
+    \rowcolor{red!12}
+    A & Dise\~{n}o de ruta     & 5 & 0  & 5  & 0  & \textbf{0} & \textbf{S\'{I}} \\
+    \hline
+    \rowcolor{red!12}
+    B & Compra de v\'{a}lvulas & 3 & 5  & 8  & 5  & \textbf{0} & \textbf{S\'{I}} \\
+    \hline
+    \rowcolor{amarilloHolgura}
+    C & Instalaci\'{o}n CD1    & 4 & 8  & 12 & 10 & 2 & no \\
+    \hline
+    \rowcolor{red!12}
+    D & Instalaci\'{o}n CD2    & 6 & 8  & 14 & 8  & \textbf{0} & \textbf{S\'{I}} \\
+    \hline
+    \rowcolor{red!12}
+    E & Pruebas de flujo        & 2 & 14 & 16 & 14 & \textbf{0} & \textbf{S\'{I}} \\
+    \hline
+    \rowcolor{red!12}
+    F & Capacitaci\'{o}n       & 3 & 16 & 19 & 16 & \textbf{0} & \textbf{S\'{I}} \\
+    \hline
+    \rowcolor{red!12}
+    G & Inicio operaci\'{o}n   & 1 & 19 & 20 & 19 & \textbf{0} & \textbf{S\'{I}} \\
+    \hline
+  \end{tabular}
+  \caption{Tabla PERT/CPM completa. Rojo: actividades cr\'{i}ticas. Amarillo: actividad con holgura.}
+\end{table}
+
+\begin{cajares}
+\textbf{Ruta cr\'{i}tica:} $A \to B \to D \to E \to F \to G$
+
+Longitud: $5 + 3 + 6 + 2 + 3 + 1 = \mathbf{20}$ d\'{i}as h\'{a}biles.
+
+La actividad \textbf{C} (Instalaci\'{o}n CD1) tiene holgura de \textbf{2 d\'{i}as}: puede
+iniciarse hasta el d\'{i}a 10 sin afectar la duraci\'{o}n total del proyecto.
+\end{cajares}
+
+\subsection{Diagrama de Gantt}
+
+\begin{figure}[H]
+\centering
+\begin{ganttchart}[
+    hgrid, vgrid,
+    x unit=0.55cm,
+    y unit title=0.6cm,
+    y unit chart=0.72cm,
+    title height=1,
+    bar height=0.5,
+    bar top shift=0.25,
+    title label font=\scriptsize,
+    bar label font=\small
+]{0}{21}
+  \gantttitle{D\'{i}as h\'{a}biles}{22} \\
+  \gantttitlelist{0,...,21}{1} \\
+  \ganttbar[bar/.append style={fill=red!45}]{A -- Dise\~{n}o ruta (cr\'{i}t.)}{0}{4} \\
+  \ganttbar[bar/.append style={fill=red!45}]{B -- Compra v\'{a}lvulas (cr\'{i}t.)}{5}{7} \\
+  \ganttbar[bar/.append style={fill=blue!45}]{C -- Inst. CD1 (holgura 2 d)}{8}{11}
+  \ganttbar[bar/.append style={fill=blue!10, draw=none}]{}{12}{13} \\
+  \ganttbar[bar/.append style={fill=red!45}]{D -- Inst. CD2 (cr\'{i}t.)}{8}{13} \\
+  \ganttbar[bar/.append style={fill=red!45}]{E -- Pruebas flujo (cr\'{i}t.)}{14}{15} \\
+  \ganttbar[bar/.append style={fill=red!45}]{F -- Capacitaci\'{o}n (cr\'{i}t.)}{16}{18} \\
+  \ganttbar[bar/.append style={fill=red!45}]{G -- Inicio operaci\'{o}n (cr\'{i}t.)}{19}{19}
+\end{ganttchart}
+\caption{Diagrama de Gantt.
+  \textcolor{red!70!black}{\rule{0.8cm}{4pt}} Actividades cr\'{i}ticas.\quad
+  \textcolor{blue!60}{\rule{0.8cm}{4pt}} Actividad C con holgura de 2 d\'{i}as.}
+\end{figure}
+
+\subsection{Verificaci\'{o}n del plazo}
+
+\begin{enumerate}
+  \item \textbf{Duraci\'{o}n total del proyecto:} \textbf{20 d\'{i}as h\'{a}biles} (4 semanas).
+  Suma de la ruta cr\'{i}tica: $5+3+6+2+3+1 = 20$ d\'{i}as.
+
+  \item \textbf{Cumplimiento del l\'{i}mite de 40 d\'{i}as:} S\'{i}, ampliamente.
+  El proyecto termina 20 d\'{i}as antes del l\'{i}mite.
+
+  \item \textbf{Holgura global del proyecto:} $40 - 20 = \mathbf{20}$ d\'{i}as h\'{a}biles
+  de margen disponible. No se requieren acciones de compresi\'{o}n (crashing).
+
+  \item \textbf{Holgura interna:} La actividad \textbf{C} (Instalaci\'{o}n CD1)
+  tiene 2 d\'{i}as de holgura: puede iniciarse entre el d\'{i}a 8 y el d\'{i}a 10
+  sin comprometer el cronograma.
+\end{enumerate}
+
+\begin{cajares}
+El proyecto tiene suficiente margen para absorber imprevistos de hasta 20 d\'{i}as h\'{a}biles
+sin incumplir el plazo. \textbf{No se requieren acciones de compresi\'{o}n.}
+\end{cajares}
+
+\newpage
+
+% ════════════════════════════════════════════════════════════════════════════
+\section{Conclusiones y recomendaciones}
+
+\subsection{Resumen de hallazgos}
+
+\begin{enumerate}
+  \item \textbf{Modelo de transporte:} El costo m\'{i}nimo de distribuci\'{o}n es
+  \textbf{\$1\,180 por semana}, empleando \'{u}nicamente 5 de las 12 rutas posibles.
+  Las tres plantas operan al 100\,\% de su capacidad, confirmando que el sistema
+  est\'{a} perfectamente balanceado (oferta = demanda = 150 miles de litros).
+
+  \item \textbf{Especializaci\'{o}n por ruta:} La Planta A abastece CD2 y CD3,
+  aprovechando su costo m\'{i}nimo de \$6 hacia CD2. La Planta B cubre CD1 y CD3.
+  La Planta C se especializa exclusivamente en CD4 (\$5/miles de litros),
+  el menor costo de toda la tabla.
+
+  \item \textbf{PERT/CPM:} El proyecto de instalaci\'{o}n de red se ejecuta en
+  \textbf{20 d\'{i}as h\'{a}biles}, cumpliendo ampliamente con el l\'{i}mite de 40 d\'{i}as.
+  La ruta cr\'{i}tica es A$\to$B$\to$D$\to$E$\to$F$\to$G, con 6 de las 7 actividades siendo cr\'{i}ticas.
+
+  \item \textbf{Riesgo operativo:} El 85\,\% de las actividades son cr\'{i}ticas,
+  por lo que casi cualquier retraso individual afecta la fecha de conclusi\'{o}n.
+  La \'{u}nica flexibilidad interna es la actividad C (2 d\'{i}as de holgura).
+\end{enumerate}
+
+\subsection{Respuesta: \textquestiondown se puede ejecutar el proyecto en 8 semanas?}
+
+\textbf{S\'{i}.} La duraci\'{o}n calculada es de \textbf{20 d\'{i}as h\'{a}biles (4 semanas)},
+que representa exactamente la mitad del plazo m\'{a}ximo permitido de 40 d\'{i}as (8 semanas).
+El proyecto cuenta con 20 d\'{i}as de holgura global, margen suficiente para gestionar
+riesgos sin comprometer el plazo.
+
+\subsection{Recomendaciones operativas}
+
+\begin{enumerate}
+  \item \textbf{Distribuci\'{o}n:} Mantener la ruta Planta A $\to$ CD2 como prioritaria
+  dado su costo m\'{i}nimo (\$6). Si la demanda de CD4 crece, ampliar capacidad en la
+  Planta C antes de redirigir flujos de otras plantas.
+
+  \item \textbf{Gesti\'{o}n del proyecto:} Monitorear prioritariamente la actividad
+  \textbf{D} (Instalaci\'{o}n CD2, 6 d\'{i}as), la m\'{a}s larga de la ruta cr\'{i}tica y,
+  por tanto, el mayor riesgo de retraso.
+
+  \item \textbf{Capacidad productiva:} Evaluar la ampliaci\'{o}n de la Planta B
+  (actualmente al l\'{i}mite), para dar flexibilidad ante crecimientos futuros de demanda.
+
+  \item \textbf{Actividad C:} Aprovechar la holgura de 2 d\'{i}as para revisar la
+  calidad de los materiales antes del inicio, reduciendo el riesgo de retrabajos.
+\end{enumerate}
+
+\subsection{Limitaciones del estudio}
+
+\begin{itemize}
+  \item El modelo de transporte asume costos fijos y capacidades determinísticas.
+  En la pr\'{a}ctica, los costos pueden variar por condiciones viales o estacionalidad.
+  \item El an\'{a}lisis PERT/CPM usa duraciones determinísticas (CPM). Una extensi\'{o}n
+  con distribuciones probabil\'{i}sticas (estimaciones optimista/m\'{a}s probable/pesimista)
+  dar\'{i}a una estimaci\'{o}n de riesgo m\'{a}s robusta.
+  \item No se consideraron costos de inventario ni restricciones de frecuencia de entrega.
+\end{itemize}
+
+\newpage
+
+% ════════════════════════════════════════════════════════════════════════════
+\section*{Anexos}
+\addcontentsline{toc}{section}{Anexos}
+
+\subsection*{Anexo A: C\'{o}digo R --- Modelo de transporte}
+
+\begin{lstlisting}[language=R, caption={Script completo: modelo de transporte (codigo\_transporte.R)}]
+library(lpSolve)
+
+# --- 1. Matriz de costos (3 plantas x 4 CDs) ---
+costos <- matrix(c(
+   8,  6, 10,  9,   # Planta A
+   9, 12, 13,  7,   # Planta B
+  14,  9, 16,  5    # Planta C
+), nrow = 3, byrow = TRUE)
+
+rownames(costos) <- c("Planta_A", "Planta_B", "Planta_C")
+colnames(costos) <- c("CD1", "CD2", "CD3", "CD4")
+
+# --- 2. Oferta y demanda ---
+capacidad <- c(50, 60, 40)
+demanda   <- c(30, 45, 35, 40)
+
+cat("Oferta total:", sum(capacidad), "| Demanda total:", sum(demanda), "\n")
+
+# --- 3. Resolver con lp.transport ---
+transporte <- lp.transport(
+  cost.mat  = costos,
+  direction = "min",
+  row.signs = rep("<=", 3),
+  row.rhs   = capacidad,
+  col.signs = rep(">=", 4),
+  col.rhs   = demanda
+)
+
+# --- 4. Resultados ---
+cat("\n=== SOLUCION OPTIMA ===\n")
+cat("Estado:", transporte$status, "(0 = optimo encontrado)\n")
+cat("Costo minimo total: $", transporte$objval, "por semana\n\n")
+
+envios <- transporte$solution
+rownames(envios) <- c("Planta_A", "Planta_B", "Planta_C")
+colnames(envios) <- c("CD1", "CD2", "CD3", "CD4")
+print(envios)
+
+# --- 5. Verificacion de restricciones ---
+uso      <- rowSums(envios)
+recibido <- colSums(envios)
+print(data.frame(Planta=rownames(envios), Uso=uso,
+                 Capacidad=capacidad, Sobrante=capacidad-uso))
+print(data.frame(CD=colnames(envios), Recibido=recibido,
+                 Demanda=demanda, Excedente=recibido-demanda))
+
+# --- 6. Costo por ruta activa ---
+for(i in 1:3){
+  for(j in 1:4){
+    if(envios[i,j] > 0)
+      cat(sprintf("  %s -> %s: %g miles x $%g = $%g\n",
+          rownames(envios)[i], colnames(envios)[j],
+          envios[i,j], costos[i,j], envios[i,j]*costos[i,j]))
+  }
+}
+
+# --- 7. Analisis de sensibilidad: CD4 demanda = 50 ---
+demanda2 <- c(30, 45, 35, 50)
+if(sum(capacidad) < sum(demanda2)){
+  cat("INFACTIBLE: capacidad total (150) < nueva demanda (160)\n")
+  cat("Se necesitan", sum(demanda2)-sum(capacidad),
+      "miles de litros adicionales de capacidad.\n")
+}
+\end{lstlisting}
+
+\subsection*{Anexo B: C\'{o}digo R --- PERT/CPM}
+
+\begin{lstlisting}[language=R, caption={Script PERT/CPM completo (codigo\_pert.R)}]
+library(igraph)
+library(ggplot2)
+
+# --- 1. Definicion de actividades ---
+actividades <- data.frame(
+  id       = c("A","B","C","D","E","F","G"),
+  nombre   = c("Diseno de ruta","Compra de valvulas","Instalacion CD1",
+                "Instalacion CD2","Pruebas de flujo","Capacitacion",
+                "Inicio de operacion"),
+  duracion = c(5, 3, 4, 6, 2, 3, 1),
+  pred     = c("","A","B","B","C,D","E","F"),
+  stringsAsFactors = FALSE
+)
+n <- nrow(actividades)
+
+# --- 2. Forward Pass ---
+TE <- numeric(n); names(TE) <- actividades$id
+TF_early <- numeric(n); names(TF_early) <- actividades$id
+for(i in 1:n){
+  preds <- trimws(strsplit(actividades$pred[i], ",")[[1]])
+  TE[i] <- if(preds[1]=="") 0 else max(TF_early[preds])
+  TF_early[i] <- TE[i] + actividades$duracion[i]
+}
+duracion_total <- TF_early["G"]
+cat("Duracion total del proyecto:", duracion_total, "dias\n")
+
+# --- 3. Backward Pass ---
+TL <- numeric(n); names(TL) <- actividades$id
+TFL <- numeric(n); names(TFL) <- actividades$id
+for(i in n:1){
+  suc <- actividades$id[sapply(actividades$pred, function(p)
+    any(trimws(strsplit(p,",")[[1]]) == actividades$id[i]))]
+  TFL[i] <- if(length(suc)==0) duracion_total else min(TL[suc])
+  TL[i]  <- TFL[i] - actividades$duracion[i]
+}
+
+# --- 4. Holguras y ruta critica ---
+holgura <- TL - TE
+critica  <- holgura == 0
+resultado <- data.frame(
+  Actividad=actividades$id, Dur=actividades$duracion,
+  TE=TE, TF=TF_early, TL=TL, TFL=TFL,
+  Holgura=holgura, Critica=ifelse(critica,"SI","no"))
+print(resultado)
+cat("Ruta critica:", paste(actividades$id[critica], collapse=" -> "), "\n")
+cat("Holgura del proyecto:", 40-duracion_total, "dias\n")
+
+# --- 5. Diagrama de Gantt ---
+gantt_data <- data.frame(
+  Act    = factor(resultado$Actividad, levels=rev(resultado$Actividad)),
+  inicio = resultado$TE,
+  fin    = resultado$TF,
+  critica= resultado$Critica)
+ggplot(gantt_data, aes(xmin=inicio, xmax=fin,
+       ymin=as.numeric(Act)-0.4, ymax=as.numeric(Act)+0.4, fill=critica)) +
+  geom_rect(color="black", linewidth=0.3) +
+  scale_fill_manual(values=c("SI"="#E74C3C","no"="#3498DB"),
+                    name="Tipo") +
+  scale_x_continuous(breaks=0:20) +
+  scale_y_continuous(breaks=1:7, labels=rev(resultado$Actividad)) +
+  labs(title="Gantt - Instalacion Red Distribucion",
+       x="Dias habiles", y="Actividad") +
+  theme_minimal(base_size=11) +
+  theme(legend.position="bottom")
+\end{lstlisting}
+
+\subsection*{Anexo C: Salida de consola --- Modelo de transporte}
+
+\begin{lstlisting}[language={}, basicstyle=\ttfamily\footnotesize,
+                   frame=single, backgroundcolor=\color{black!5}]
+Oferta total: 150 | Demanda total: 150
+
+=== SOLUCION OPTIMA ===
+Estado: 0 (0 = optimo encontrado)
+Costo minimo total: $ 1180 por semana
+
+Matriz de envios optimos (miles de litros):
+          CD1 CD2 CD3 CD4
+Planta_A    0  45   5   0
+Planta_B   30   0  30   0
+Planta_C    0   0   0  40
+
+Verificacion de oferta:
+  Planta Uso Capacidad Sobrante
+1      A  50        50        0
+2      B  60        60        0
+3      C  40        40        0
+
+Verificacion de demanda:
+   CD Recibido Demanda Excedente
+1 CD1       30      30         0
+2 CD2       45      45         0
+3 CD3       35      35         0
+4 CD4       40      40         0
+
+Detalle de costos por ruta activa:
+  Planta_A -> CD2: 45 miles x $6  = $270
+  Planta_A -> CD3:  5 miles x $10 = $ 50
+  Planta_B -> CD1: 30 miles x $9  = $270
+  Planta_B -> CD3: 30 miles x $13 = $390
+  Planta_C -> CD4: 40 miles x $5  = $200
+                                    -----
+                          TOTAL:   $1180
+
+=== ANALISIS DE SENSIBILIDAD: CD4 demanda = 50 ===
+INFACTIBLE: capacidad total (150) < nueva demanda (160)
+Se necesitan 10 miles de litros adicionales de capacidad.
+\end{lstlisting}
+
+\subsection*{Anexo D: Salida de consola --- PERT/CPM}
+
+\begin{lstlisting}[language={}, basicstyle=\ttfamily\footnotesize,
+                   frame=single, backgroundcolor=\color{black!5}]
+Duracion total del proyecto: 20 dias
+
+  Actividad  Dur  TE  TF  TL TFL Holgura Critica
+1         A    5   0   5   0   5       0      SI
+2         B    3   5   8   5   8       0      SI
+3         C    4   8  12  10  14       2      no
+4         D    6   8  14   8  14       0      SI
+5         E    2  14  16  14  16       0      SI
+6         F    3  16  19  16  19       0      SI
+7         G    1  19  20  19  20       0      SI
+
+Ruta critica: A -> B -> D -> E -> F -> G
+Holgura del proyecto: 20 dias
+\end{lstlisting}
+
+\end{document}

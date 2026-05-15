@@ -1,0 +1,629 @@
+\documentclass[12pt,a4paper]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[a4paper, left=2.5cm, right=2.5cm, top=35mm, bottom=20mm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{geometry}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage[hidelinks]{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{eso-pic}
+
+% Configuración de código R
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codeblue}{rgb}{0.25,0.5,0.75}
+\lstdefinestyle{rstyle}{
+	language=R,
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{codeblue}\bfseries,
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codegreen},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=b,
+	keepspaces=true,
+	numbers=left,
+	numbersep=5pt,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	tabsize=2
+}
+
+\lstset{style=rstyle}
+
+
+
+
+\newcommand\BackgroundPic{
+	\put(0,5){
+		\parbox[b][\paperheight]{\paperwidth}{
+			\vfill
+			\centering
+			\includegraphics[width=\paperwidth,height=\paperheight,
+			keepaspectratio]{images/FondoUTA-SW}
+			\vfill
+		}
+	}
+}
+
+
+% ==================================================
+% CONFIGURACIÓN PARA \maketitle
+% ==================================================
+
+% Título principal
+\title{
+	\vspace{-3cm}
+	\begin{center}
+		% Logo izquierdo
+		\begin{minipage}{0.13\textwidth}
+			\includegraphics[width=1.1\textwidth]{images/Logo_Uta} % Reemplazar con ruta de tu logo izquierdo
+		\end{minipage}
+		\hfill
+		% Título de la universidad
+		\begin{minipage}{0.7\textwidth}
+			\begin{center}
+				\large \textbf{UNIVERSIDAD TÉCNICA DE AMBATO} \\
+				\normalsize Facultad de Ingeniería en Sistemas, Electrónica e Industrial \\
+				\normalsize Carrera de Software \\
+				\vspace{0.2cm}
+				\normalsize \textbf{Investigación de Operaciones}
+			\end{center}
+		\end{minipage}
+		\hfill
+		% Logo derecho
+		\begin{minipage}{0.13\textwidth}
+			\includegraphics[width=1.1\textwidth]{images/Logo_sistemas} % Reemplazar con ruta de tu logo derecho
+		\end{minipage}
+	\end{center}
+	
+	\vspace{1cm}
+	
+	\rule{\linewidth}{2pt}
+	\vspace{0.2cm}
+	
+	\begin{center}
+		\Large \textbf{Optimización de Distribución y Planificación Temporal en Planta Embotelladora de Agua Purificada} \\
+	\end{center}
+	
+	\vspace{0.2cm}
+	\rule{\linewidth}{2pt}
+	\vspace{1cm}
+	
+	\begin{center}
+		\large \textbf{Proyecto Académico} \\
+		Segundo Parcial 
+	\end{center}
+}
+
+\author{
+	\large
+	\begin{tabular}{ll}
+		\textbf{Estudiantes:} & Estudiante 1\\
+		& Estudiante 2\\
+		& Estudiante 3\\
+		& Estudiante 4\\
+	\end{tabular}
+}
+
+\date{
+	\large
+	\begin{tabular}{ll}
+		\textbf{Docente:} & Inti Becerra, MSc. \\
+		\textbf{Fecha:} & Agregar Fecha \\
+		\textbf{Período:} & Enero 2026 - Julio 2026 \\
+		\textbf{Lugar:} & Ambato - Ecuador
+	\end{tabular}
+}
+\begin{document}
+
+	\maketitle
+	\newpage
+	\tableofcontents
+	\newpage
+	\AddToShipoutPicture{\BackgroundPic}
+	\section{Información general del proyecto}
+	
+	\subsection{Datos básicos}
+	
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{|l|l|}
+			\hline
+			\textbf{Asignatura} & Investigación de Operaciones \\
+			\hline
+			\textbf{Plazo de entrega} & 4 semanas \\
+			\hline
+			\textbf{Formato de entrega} & Informe técnico + Código R \\
+			\hline
+			\textbf{Herramienta obligatoria} & R (lpSolve, igraph, ggplot2) \\
+			\hline
+			\textbf{Tipo de trabajo} & Grupal \\
+			\hline
+		\end{tabular}
+	\end{table}
+	
+	\subsection{Objetivos del proyecto}
+	
+	Al completar este proyecto, el estudiante será capaz de:
+	
+	\begin{enumerate}
+		\item Formular un problema de transporte como un modelo de Programación Lineal.
+		\item Implementar la solución en R.
+		\item Calcular tiempos tempranos, tardíos, holguras y ruta crítica con PERT/CPM.
+		\item Interpretar los resultados en términos de costos y tiempos.
+		\item Presentar conclusiones ejecutivas con soporte gráfico.
+	\end{enumerate}
+	
+	\subsection{Contexto del problema}
+	
+	Una planta embotelladora de agua purificada tiene \textbf{3 centros de producción} y debe abastecer a \textbf{4 centros de distribución (CD)}. Adicionalmente, debe ejecutar un proyecto de instalación de una nueva red de distribución.
+	
+	\newpage
+	
+	\section{Parte 1: Modelo de transporte}
+	
+	\subsection{Descripción del problema}
+	
+	Se debe determinar cuántos miles de litros enviar desde cada planta a cada CD para minimizar el costo total de transporte, respetando las capacidades de las plantas y las demandas de los CD.
+	
+	\subsection{Datos proporcionados}
+	
+	\subsubsection{Capacidad de producción (miles de litros/semana)}
+	
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{|c|c|}
+			\hline
+			\textbf{Planta} & \textbf{Capacidad} \\
+			\hline
+			A & 50 \\
+			B & 60 \\
+			C & 40 \\
+			\hline
+		\end{tabular}
+		\hspace{2cm}
+		\begin{tabular}{|c|c|}
+			\hline
+			\textbf{CD} & \textbf{Demanda} \\
+			\hline
+			CD1 & 30 \\
+			CD2 & 45 \\
+			CD3 & 35 \\
+			CD4 & 40 \\
+			\hline
+		\end{tabular}
+	\end{table}
+	
+	\subsubsection{Costos de transporte (\$/miles de litros)}
+	
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{|c|cccc|}
+			\hline
+			\textbf{Origen $\backslash$ Destino} & CD1 & CD2 & CD3 & CD4 \\
+			\hline
+			Planta A & 8 & 6 & 10 & 9 \\
+			Planta B & 9 & 12 & 13 & 7 \\
+			Planta C & 14 & 9 & 16 & 5 \\
+			\hline
+		\end{tabular}
+	\end{table}
+	
+	\subsection{Tareas específicas}
+	
+	\subsubsection{Formulación matemática}
+	
+	Escriba el modelo completo con:
+	
+	\begin{itemize}
+		\item Variables de decisión (definición clara)
+		\item Función objetivo
+		\item Restricciones de oferta %(3 restricciones)
+		\item Restricciones de demanda %(4 restricciones)
+		\item Restricción de no negatividad
+	\end{itemize}
+	
+	\noindent \textbf{Formato sugerido:}
+	
+	\begin{align}
+		\text{Variables: } & x_{ij} = \text{miles de litros enviados desde planta } i \text{ a CD } j \\
+		& i \in \{A, B, C\}, \quad j \in \{1, 2, 3, 4\} \\
+		\text{Min } Z = & \sum_{i=1}^{3}\sum_{j=1}^{4} c_{ij}x_{ij}
+	\end{align}
+	
+	\subsubsection{Implementación en R}
+	
+	Cree un script que:
+	
+	\begin{enumerate}
+		\item Cargue el paquete \texttt{lpSolve}
+		\item Defina la matriz de costos
+		\item Defina los vectores de capacidad y demanda
+		\item Ejecute \texttt{lp.transport()} con los parámetros correctos
+		\item Almacene el resultado en una variable
+	\end{enumerate}
+	
+	\noindent \textbf{Estructura base:}
+	
+	\begin{lstlisting}[language=R, caption=Estructura para el modelo de transporte]
+		library(lpSolve)
+		
+		# Matriz de costos (3 filas, 4 columnas)
+		costos <- matrix(c(
+		8, 6, 10, 9,
+		9, 12, 13, 7,
+		14, 9, 16, 5
+		), nrow = 3, byrow = TRUE)
+		
+		# Capacidades (oferta)
+		capacidad <- c(50, 60, 40)
+		
+		# Demandas
+		demanda <- c(30, 45, 35, 40)
+		
+		# Resolver modelo de transporte
+		transporte <- lp.transport(
+		cost.mat = costos,
+		direction = "min",
+		row.signs = rep("<=", 3),
+		row.rhs = capacidad,
+		col.signs = rep(">=", 4),
+		col.rhs = demanda
+		)
+	\end{lstlisting}
+	
+	\subsubsection{Extracción de resultados}
+	
+	Extraiga y reporte:
+	
+	\begin{itemize}
+		\item Costo total mínimo por semana
+		\item Matriz de envíos óptimos
+		\item Verificación de que cada planta no excede su capacidad
+		\item Verificación de que cada CD recibe al menos su demanda
+	\end{itemize}
+	
+	\subsubsection{Interpretación}
+	
+	Responda:
+	
+	\begin{enumerate}
+		\item ¿Qué planta envía más producto? ¿Por qué?
+		\item ¿Qué ruta es la más utilizada? ¿Qué ruta no se utiliza?
+		\item ¿Por qué la Planta C solo envía a un CD?
+		\item ¿Qué pasaría si la demanda de CD4 aumenta a 50?
+	\end{enumerate}
+	
+	\newpage
+	
+	\section{Parte 2: Gestión del proyecto (PERT/CPM)}
+	
+	\subsection{Descripción del problema}
+	
+	La empresa debe ejecutar un proyecto de instalación de una nueva red de distribución con 7 actividades. El proyecto debe durar máximo \textbf{40 días hábiles} (8 semanas).
+	
+	\subsection{Datos proporcionados}
+	
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{|c|l|c|l|}
+			\hline
+			\textbf{Actividad} & \textbf{Descripción} & \textbf{Duración (días)} & \textbf{Predecesor(es)} \\
+			\hline
+			A & Diseño de ruta & 5 & -- \\
+			B & Compra de válvulas & 3 & A \\
+			C & Instalación en CD1 & 4 & B \\
+			D & Instalación en CD2 & 6 & B \\
+			E & Pruebas de flujo & 2 & C, D \\
+			F & Capacitación & 3 & E \\
+			G & Inicio de operación & 1 & F \\
+			\hline
+		\end{tabular}
+	\end{table}
+	
+	\subsection{Tareas específicas}
+	
+	\subsubsection{Construcción de la red}
+	
+	Dibuje (a mano o con R) el diagrama de red mostrando:
+	
+	\begin{itemize}
+		\item Nodos (eventos/inicios de actividades)
+		\item Flechas (actividades con su duración)
+		\item Relaciones de precedencia claras
+	\end{itemize}
+	
+	\subsubsection{Cálculo de tiempos tempranos (Forward Pass)}
+	
+	Calcule para cada actividad:
+	
+	\begin{itemize}
+		\item \textbf{Tiempo de inicio más temprano (TE)}
+		\item \textbf{Tiempo de finalización más temprano (TF)}
+	\end{itemize}
+	
+%	\noindent \textbf{Procedimiento:}
+%	
+%	\begin{enumerate}
+%		\item Actividad A: TE = 0
+%		\item Actividad B: TE = TF de su predecesor
+%		\item Actividad C y D: TE = TF de B
+%		\item Actividad E: TE = max(TF de C, TF de D)
+%		\item Continuar hasta G
+%	\end{enumerate}
+	
+	\subsubsection{Cálculo de tiempos tardíos (Backward Pass)}
+	
+	Calcule para cada actividad:
+	
+	\begin{itemize}
+		\item \textbf{Tiempo de inicio más tardío (TL)} (sin retrasar el proyecto)
+		\item \textbf{Tiempo de finalización más tardío (TFL)}
+	\end{itemize}
+	
+%	\noindent \textbf{Procedimiento:}
+%	
+%	\begin{enumerate}
+%		\item Duración del proyecto = TF de G
+%		\item Actividad G: TL = duración\_proyecto - duración
+%		\item Actividad F: TL = TL de G - duración de F
+%		\item Actividad E: TL = TL de F - duración de E
+%		\item Actividad D y C: TL = TL de E - duración respectiva
+%		\item Actividad B: TL = min(TL de C, TL de D) - duración de B
+%		\item Actividad A: TL = TL de B - duración de A
+%	\end{enumerate}
+%	
+	\subsubsection{Cálculo de holguras y ruta crítica}
+	
+	Para cada actividad, calcule:
+	
+	\begin{itemize}
+		\item \textbf{Holgura total} = TL - TE (o TFL - TF)
+		\item \textbf{¿Es crítica?} (holgura = 0)
+	\end{itemize}
+	
+	Identifique la \textbf{ruta crítica} (secuencia de actividades con holgura 0).
+	
+	\subsubsection{Diagrama de Gantt}
+	
+	Construya un diagrama de Gantt mostrando:
+	
+	\begin{itemize}
+		\item Eje X: Días (0 a duración total del proyecto)
+		\item Eje Y: Actividades (A a G)
+		\item Barras horizontales: duración de cada actividad
+		\item Diferentes colores para actividades críticas y no críticas
+		\item Holguras visibles (espacios vacíos antes de iniciar)
+	\end{itemize}
+	
+	\subsubsection{Verificación del plazo}
+	
+	Responda:
+	
+	\begin{enumerate}
+		\item ¿Cuál es la duración total del proyecto en días?
+		\item ¿Cumple con el límite de 40 días? Si no, ¿cuántos días excede?
+		\item Si excede, proponga al menos 2 acciones de compresión (crashing)
+		\item Si cumple, ¿cuántos días de holgura tiene el proyecto?
+	\end{enumerate}
+	
+	\newpage
+	
+	\section{Parte 3: Entrega final}
+	
+	\subsection{Estructura del informe}
+	
+	El informe debe contener las siguientes secciones:
+	
+	\subsubsection{Portada}
+	\begin{itemize}
+		\item Título del proyecto
+		\item Nombre de los estudiantes
+		\item Asignatura y profesor
+		\item Fecha de entrega
+	\end{itemize}
+	
+	\subsubsection{Resumen (máx. 1 página)}
+	\begin{itemize}
+		\item Problema planteado
+		\item Métodos utilizados
+		\item Principales resultados numéricos
+		\item Conclusión principal
+	\end{itemize}
+	
+	\subsubsection{Modelo de transporte}
+	\begin{itemize}
+		\item Formulación matemática
+		%\item Código R (comentado)
+		\item Tabla de resultados (matriz de envíos)
+		\item Análisis de sensibilidad (al menos una variación)
+		\item Gráfico de flujos 
+	\end{itemize}
+	
+	\subsubsection{Gestión del proyecto}
+	\begin{itemize}
+		\item Tabla de actividades
+		\item Diagrama de red
+		\item Tabla PERT/CPM (TE, TL, holguras, crítica)
+		\item Diagrama de Gantt
+		\item Análisis de cumplimiento de plazo
+	\end{itemize}
+	
+	\subsubsection{Conclusiones y recomendaciones}
+	\begin{itemize}
+		\item Resumen de hallazgos
+		\item Respuesta a la pregunta: ¿se puede ejecutar el proyecto en 8 semanas?
+		\item Recomendaciones operativas
+		\item Limitaciones del estudio
+	\end{itemize}
+	
+	\subsubsection{Anexos}
+	\begin{itemize}
+		\item Código R completo
+		\item Salidas de consola
+		\item Material complementario
+	\end{itemize}
+	
+	\subsection{Criterios de evaluación}
+	
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{|l|c|}
+			\hline
+			\textbf{Criterio} & \textbf{Ponderación} \\
+			\hline
+			Correcta formulación del modelo de transporte & 10\% \\
+			Implementación correcta en R (parte 1) & 10\% \\
+			Interpretación de resultados de transporte & 10\% \\
+			Presentación primera parte. & 20\% \\
+			Correcto cálculo PERT/CPM (tiempos y holguras) & 10\% \\
+			Identificación de ruta crítica & 5\% \\
+			Diagrama de Gantt y red & 5\% \\
+			Calidad del informe  & 10\% \\
+			Presentación Final. & 20\% \\
+			%Análisis adicional (sensibilidad, crashing) & 10\% \\
+			\hline
+			\textbf{Total} & \textbf{100\%} \\
+			\hline
+		\end{tabular}
+	\end{table}
+	
+	\subsection{Formato de entrega}
+	
+	\noindent \textbf{Archivos a entregar:}
+	
+	\begin{enumerate}
+		\item \texttt{informe\_proyecto.pdf} - Informe completo.
+		\item \texttt{codigo\_transporte.R} - Script R para el modelo de transporte.
+		\item \texttt{codigo\_pert.R} - Script R para el proyecto.
+%		\item \texttt{resultados.txt} - Salidas numéricas principales
+	\end{enumerate}
+	
+	\noindent \textbf{Plazo:} 4 semanas desde la fecha de asignación.
+	
+	\newpage
+	
+%	\section{Recursos y ayudas}
+%	
+%	\subsection{Paquetes de R recomendados}
+%	
+%	\begin{lstlisting}[language=R, caption=Instalación y carga de paquetes]
+%		# Instalacion (solo una vez)
+%		install.packages(c("lpSolve", "igraph", "DiagrammeR", "ggplot2", "dplyr"))
+%		
+%		# Cargar en cada sesion
+%		library(lpSolve)     # Para el modelo de transporte
+%		library(ggplot2)     # Para graficos (Gantt)
+%		library(igraph)      # Para diagrama de red
+%		library(dplyr)       # Para manipulacion de datos
+%	\end{lstlisting}
+%	
+%	\subsection{Errores comunes a evitar}
+%	
+%	\begin{itemize}
+%		\item \textbf{Error:} Olvidar que \texttt{lp.transport} usa filas = orígenes, columnas = destinos \\
+%		\textbf{Solución:} Verificar dimensiones con \texttt{dim(matriz\_costos)}
+%		
+%		\item \textbf{Error:} Invertir oferta y demanda en \texttt{row.rhs} y \texttt{col.rhs} \\
+%		\textbf{Solución:} \texttt{row.rhs} son capacidades (plantas), \texttt{col.rhs} son demandas (CD)
+%		
+%		\item \textbf{Error:} Usar \texttt{direction = "max"} en lugar de \texttt{"min"} \\
+%		\textbf{Solución:} Queremos minimizar costo
+%		
+%		\item \textbf{Error:} En PERT, confundir TE con TF \\
+%		\textbf{Solución:} TE es inicio, TF = TE + duración
+%	\end{itemize}
+%	
+%	\subsection{Código guía para cálculo PERT manual}
+%	
+%	\begin{lstlisting}[language=R, caption=Estructura para cálculo de tiempos tempranos]
+%		# Ejemplo: calculo de tiempos tempranos
+%		actividades <- data.frame(
+%		id = c("A","B","C","D","E","F","G"),
+%		duracion = c(5,3,4,6,2,3,1),
+%		pred = list(character(0), "A", "B", "B", c("C","D"), "E", "F")
+%		)
+%		
+%		n <- nrow(actividades)
+%		te <- rep(0, n)
+%		
+%		for(i in 1:n) {
+%			preds <- actividades$pred[[i]]
+%			if(length(preds) > 0) {
+%				te[i] <- max(te[which(actividades$id %in% preds)] + 
+%				actividades$duracion[which(actividades$id %in% preds)])
+%			}
+%		}
+%		print(te)
+%	\end{lstlisting}
+%	
+%	\newpage
+	
+%	\section{Preguntas frecuentes}
+%	
+%	\begin{itemize}[leftmargin=2cm]
+%		\item[\textbf{P:}] ¿Puedo usar otro software además de R?
+%		\item[\textbf{R:}] No, el proyecto especifica R como herramienta exclusiva.
+%		
+%		\item[\textbf{P:}] ¿El diagrama de Gantt puede ser a mano?
+%		\item[\textbf{R:}] Se prefiere generado con R, pero si no es posible, a mano con regla y colores (escaneado).
+%		
+%		\item[\textbf{P:}] ¿Qué hago si la duración del proyecto excede 40 días?
+%		\item[\textbf{R:}] Proponga compresión de tiempos (crashing) identificando actividades en ruta crítica con menor costo por día de reducción.
+%		
+%		\item[\textbf{P:}] ¿Puedo trabajar en parejas?
+%		\item[\textbf{R:}] Consulte con su profesor.
+%		
+%		\item[\textbf{P:}] ¿Debo mostrar todas las salidas de R?
+%		\item[\textbf{R:}] Las principales sí; las intermedias pueden ir en anexos.
+%	\end{itemize}
+%	
+%	\newpage
+%	
+%	\section{Checklist de entrega}
+%	
+%	Antes de entregar, verifique:
+%	
+%	\noindent
+%	\begin{tabular}{p{0.8cm} p{14cm}}
+%		$\square$ & El modelo de transporte está correctamente formulado \\
+%		$\square$ & El código R del transporte corre sin errores \\
+%		$\square$ & La matriz de envíos suma correctamente ofertas y demandas \\
+%		$\square$ & El costo total está claramente reportado \\
+%		$\square$ & Los tiempos tempranos y tardíos están calculados para todas las actividades \\
+%		$\square$ & La holgura de cada actividad es correcta \\
+%		$\square$ & La ruta crítica está identificada \\
+%		$\square$ & El diagrama de Gantt está incluido \\
+%		$\square$ & Se verificó el plazo de 40 días \\
+%		$\square$ & El informe está bien estructurado y sin errores ortográficos \\
+%		$\square$ & Se incluyeron todos los archivos solicitados \\
+%	\end{tabular}
+%	
+%	\vspace{1cm}
+%	
+%	\begin{center}
+%		\textbf{¡Éxito con su proyecto!}
+%		
+%		\vspace{0.5cm}
+%		\textit{Recuerde que la clave está en la interpretación de los resultados, no solo en los números.}
+%		
+%		\vspace{0.5cm}
+%		Última actualización: Mayo 2026
+%	\end{center}
+	
+\end{document}

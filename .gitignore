@@ -1,0 +1,36 @@
+## --- Archivos auxiliares principales ---
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex(busy)
+*.synctex.gz
+*.pdfsync
+
+## --- Archivos de estructura y contenido ---
+*.toc
+*.lof
+*.lot
+*.out
+*.idx
+*.ind
+*.ilg
+*.bbl
+*.blg
+*.brf
+*.bcf
+*.run.xml
+
+## --- Archivos específicos de herramientas (VS Code / LaTeX Workshop) ---
+.vscode/
+*.nav
+*.snm
+*.vrb
+
+## --- Archivos temporales de sistema ---
+.DS_Store
+Thumbs.db
+
+## --- El PDF de salida ---
+# Descomenta la siguiente línea si NO quieres subir el PDF final a Git
+# *.pdf
