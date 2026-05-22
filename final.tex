@@ -26,6 +26,8 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{microtype}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning}
 
 % ─── Colores ───────────────────────────────────────────────────────────────
 \definecolor{codegreen}{rgb}{0,0.6,0}
@@ -602,39 +604,69 @@ En él, cada nodo corresponde a una actividad y las flechas indican el orden de 
 las actividades resaltadas en rojo conforman la ruta crítica $A \to B \to D \to E \to F \to G$, cuya duración 
 total determina el plazo mínimo de ejecución del proyecto.
 
+
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}[
-  nodo/.style={circle, draw=azulUTA, fill=azulClaro, thick,
-               minimum size=1cm, font=\bfseries\small},
-  critico/.style={circle, draw=rojoUTA, fill=red!15, thick,
-                  minimum size=1cm, font=\bfseries\small},
-  flechacrit/.style={-{Stealth[length=7pt]}, very thick, red!70!black},
-  flechanorm/.style={-{Stealth[length=7pt]}, thick, azulUTA!70},
-  dur/.style={font=\scriptsize\bfseries, fill=white, inner sep=2pt}
+    evento/.style={
+        circle,
+        draw=blue!70,
+        fill=blue!15,
+        very thick,
+        minimum size=1cm,
+        font=\bfseries\normalsize
+    },
+    flecha/.style={
+        -{Stealth[length=4mm, width=2.5mm]},
+        line width=1.6pt,
+        blue!80!black
+    },
+    ficticia/.style={
+        -{Stealth[length=4mm, width=2.5mm]},
+        line width=1.4pt,
+        dashed,
+        gray!70
+    },
+    dur/.style={
+        font=\small\bfseries,
+        fill=white,
+        inner sep=2pt,
+        rectangle
+    }
 ]
-\node[critico] (A) at (0,0)    {A};
-\node[critico] (B) at (2.5,0)  {B};
-\node[nodo]    (C) at (5,1.8)  {C};
-\node[critico] (D) at (5,-1.8) {D};
-\node[critico] (E) at (7.5,0)  {E};
-\node[critico] (F) at (10,0)   {F};
-\node[critico] (G) at (12.5,0) {G};
 
-\draw[flechacrit] (A) -- node[dur,above]{5 d} (B);
-\draw[flechacrit] (B) -- node[dur,below left]{3 d} (D);
-\draw[flechacrit] (D) -- node[dur,below right]{6 d} (E);
-\draw[flechacrit] (E) -- node[dur,above]{2 d} (F);
-\draw[flechacrit] (F) -- node[dur,above]{3 d} (G);
-\draw[flechanorm] (B) -- node[dur,above left]{3 d} (C);
-\draw[flechanorm] (C) -- node[dur,above right]{4 d} (E);
+% Nodos
+\node[evento] (1) at (0,0)     {1};
+\node[evento] (2) at (2.2,0)   {2};
+\node[evento] (3) at (4.4,0)   {3};
+\node[evento] (4) at (6.4,1.6) {4};
+\node[evento] (5) at (6.4,-1.6){5};
+\node[evento] (6) at (8.6,0)   {6};
+\node[evento] (7) at (10.8,0)  {7};
+\node[evento] (8) at (13.0,0)  {8};
 
-\node[critico, minimum size=0.5cm] at (3,-3.2) {};
-\node[font=\scriptsize] at (4.7,-3.2) {Actividad cr\'{i}tica};
-\node[nodo, minimum size=0.5cm] at (7,-3.2) {};
-\node[font=\scriptsize] at (8.7,-3.2) {Actividad no cr\'{i}tica};
+% Actividades principales
+\draw[flecha] (1) -- node[dur, above]{A (5)} (2);
+\draw[flecha] (2) -- node[dur, above]{B (3)} (3);
+\draw[flecha] (3) -- node[dur, above left]{C (4)} (4);
+\draw[flecha] (3) -- node[dur, below left]{D (6)} (5);
+
+% Actividad ficticia
+\draw[ficticia] (4) -- node[dur, right]{0} (5);
+
+% Continuación
+\draw[flecha] (5) -- node[dur, above right]{E (2)} (6);
+\draw[flecha] (6) -- node[dur, above]{F (3)} (7);
+\draw[flecha] (7) -- node[dur, above]{G (1)} (8);
+
+% Leyenda
+\node[evento, minimum size=0.5cm, font=\scriptsize] (leg1) at (4.5,-3.2) {};
+\node[font=\small, right=0.15cm of leg1] {Evento};
+\draw[ficticia] (7.0,-3.2) -- (8.0,-3.2);
+\node[font=\small] at (8.9,-3.2) {Ficticia};
+
 \end{tikzpicture}
-\caption{Diagrama de red PERT/CPM. Rojo: ruta cr\'{i}tica A$\to$B$\to$D$\to$E$\to$F$\to$G.}
+\caption{Diagrama de red AOA.}
 \end{figure}
 
 \subsection{C\'{a}lculo de tiempos tempranos (Forward Pass)}
@@ -949,7 +981,7 @@ if(sum(capacidad) < sum(demanda2)){
 }
 \end{lstlisting}
 
-\subsection*{Anexo B: C\'{o}digo R --- PERT/CPM}
+\subsection*{Anexo B: C\'{o}digo R --- AOA}
 
 \begin{lstlisting}[language=R, caption={Script PERT/CPM completo (codigo\_pert.R)}]
 library(igraph)
@@ -1018,7 +1050,57 @@ ggplot(gantt_data, aes(xmin=inicio, xmax=fin,
   theme(legend.position="bottom")
 \end{lstlisting}
 
-\subsection*{Anexo C: Salida de consola --- Modelo de transporte}
+
+\subsection*{Anexo C: C\'{o}digo R --- PERT/CPM}
+
+\begin{lstlisting}[language=R, caption={Script PERT/CPM completo (codigo\_pert.R)}]
+# Instalar si no los tienes: install.packages(c("igraph", "ggraph", "ggplot2"))
+library(igraph)
+library(ggraph)
+library(ggplot2)
+
+# 1. Definir los nodos y las conexiones (Edges)
+# Estructura: de -> a
+edges <- data.frame(
+  from = c(1, 2, 3, 3, 4, 5, 6, 7),
+  to   = c(2, 3, 4, 5, 5, 6, 7, 8),
+  label = c("A", "B", "C", "D", "Ficticia", "E", "F", "G"),
+  duration = c(5, 3, 4, 6, 0, 2, 3, 1)
+)
+
+# 2. Crear el objeto de grafo
+net <- graph_from_data_frame(d = edges, directed = TRUE)
+
+# 3. Definir coordenadas manuales para un disenio limpio AOA
+# Esto asegura que el diagrama no se deforme (1 es inicio, 8 es fin)
+coords <- matrix(c(
+  0, 0,   # Nodo 1
+  1, 0,   # Nodo 2
+  2, 0,   # Nodo 3
+  3, 1,   # Nodo 4 (rama superior)
+  3, -1,  # Nodo 5 (rama inferior donde convergen)
+  4, -1,  # Nodo 6
+  5, -1,  # Nodo 7
+  6, -1   # Nodo 8
+), ncol = 2, byrow = TRUE)
+
+# 4. Graficar
+ggraph(net, layout = 'manual', x = coords[,1], y = coords[,2]) +
+  geom_edge_link(aes(label = paste0(label, " (", duration, ")")),
+                 arrow = arrow(length = unit(4, 'mm')),
+                 angle_calc = 'along',
+                 label_dodge = unit(3, 'mm'),
+                 color = "darkblue") +
+  geom_node_point(size = 6, color = "skyblue") +
+  geom_node_text(aes(label = name), repel = FALSE, vjust = -1.5) +
+  theme_void() +
+  labs(title = "Diagrama de Red AOA: Proyecto de Red de Distribucion",
+       subtitle = "La linea punteada o conexion directa representa la actividad ficticia (duracion 0)")
+\end{lstlisting}
+
+
+
+\subsection*{Anexo D: Salida de consola --- Modelo de transporte}
 
 \begin{lstlisting}[language={}, basicstyle=\ttfamily\footnotesize,
                    frame=single, backgroundcolor=\color{black!5}]
@@ -1061,7 +1143,7 @@ INFACTIBLE: capacidad total (150) < nueva demanda (160)
 Se necesitan 10 miles de litros adicionales de capacidad.
 \end{lstlisting}
 
-\subsection*{Anexo D: Salida de consola --- PERT/CPM}
+\subsection*{Anexo E: Salida de consola --- PERT/CPM}
 
 \begin{lstlisting}[language={}, basicstyle=\ttfamily\footnotesize,
                    frame=single, backgroundcolor=\color{black!5}]
@@ -1080,4 +1162,14 @@ Ruta critica: A -> B -> D -> E -> F -> G
 Holgura del proyecto: 20 dias
 \end{lstlisting}
 
+\subsection*{Anexo F: Salida --- AOA}
+
+\begin{figure}[H]
+    \centering
+    % width=1.0\textwidth permite que ocupe todo el ancho disponible
+    % trim lo usamos si la imagen tiene bordes blancos vacíos que la hacen ver pequeña
+    \includegraphics[width=1.0\textwidth, keepaspectratio]{images/AOA} 
+    \caption{Diagrama de red AOA resultante del análisis en R.}
+    \label{fig:anexo_aoa}
+\end{figure}
 \end{document}
