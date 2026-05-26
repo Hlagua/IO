@@ -169,7 +169,7 @@ entorno de programaci\'{o}n y software estad\'{i}stico R. La implementaci\'{o}n 
 se apoy\'{o} en el uso de librer\'{i}as especializadas, destacando principalmente 
 \texttt{lpSolve} para la resoluci\'{o}n del modelo de optimizaci\'{o}n, e \texttt{igraph} 
 junto con \texttt{ggplot2} para la construcci\'{o}n de los diagramas de red y 
-representaciones gr\'{a}ficas.
+representaciones gr\'{a}ficas.\\
 
 En la primera parte del estudio, se formul\'{o} y resolvi\'{o} un \textbf{modelo de 
 transporte} mediante \textbf{Programaci\'{o}n Lineal}. El objetivo central consisti\'{o} en 
@@ -182,7 +182,7 @@ rutas posibles y operando las tres plantas al 100\,\% de su capacidad. Adicional
 se realiz\'{o} un an\'{a}lisis de sensibilidad que evidenci\'{o} que un incremento de 
 apenas 10 miles de litros en la demanda de CD4 tornar\'{i}a el sistema infactible, lo que 
 subraya la necesidad de planificar con anticipaci\'{o}n la expansi\'{o}n de la capacidad 
-productiva.
+productiva.\\
 
 En la segunda parte, se aplic\'{o} la metodolog\'{i}a \textbf{PERT/CPM} al proyecto de 
 instalaci\'{o}n de una nueva red de distribuci\'{o}n, compuesto por 7 actividades con 
@@ -196,6 +196,9 @@ conformada por 6 de las 7 actividades, siendo la actividad \textbf{C} (Instalaci
 en CD1) la \'{u}nica con holgura interna de 2 d\'{i}as.
 
 % ════════════════════════════════════════════════════════════════════════════
+
+\newpage
+
 \section{Informaci\'{o}n general del proyecto}
 
 \subsection{Datos b\'{a}sicos}
@@ -586,7 +589,7 @@ La empresa debe ejecutar un proyecto de instalaci\'{o}n de una nueva red de
 distribuci\'{o}n con \textbf{7 actividades}. El proyecto debe durar m\'{a}ximo
 \textbf{40 d\'{i}as h\'{a}biles} (8 semanas).
 
-\subsection{Datos del proyecto}
+\subsection{Tabla de Actividades}
 
 Para la segunda parte del estudio, se presenta a continuación el listado de las siete 
 actividades que componen el proyecto de instalación de la nueva red de distribución, 
@@ -690,7 +693,9 @@ conclusi\'{o}n.
 \caption{Diagrama de red AOA.}
 \end{figure}
 
-\subsection{C\'{a}lculo de tiempos tempranos (Forward Pass)}
+\subsection{Tabla PERT/CPM}
+
+\subsubsection{C\'{a}lculo de tiempos tempranos (Forward Pass)}
 
 El \textbf{tiempo de inicio m\'{a}s temprano} (TE) es el m\'{a}ximo de los tiempos de
 finalizaci\'{o}n m\'{a}s tempranos de sus predecesores. El \textbf{tiempo de finalizaci\'{o}n
@@ -738,7 +743,7 @@ tabla presenta los valores calculados para cada actividad del proyecto.
 \textbf{Duraci\'{o}n total del proyecto: 20 d\'{i}as h\'{a}biles}.
 \end{cajares}
 
-\subsection{C\'{a}lculo de tiempos tard\'{i}os (Backward Pass)}
+\subsubsection{C\'{a}lculo de tiempos tard\'{i}os (Backward Pass)}
 
 El \textbf{tiempo de finalizaci\'{o}n m\'{a}s tard\'{i}o} (TFL) de la \'{u}ltima actividad es
 igual a la duraci\'{o}n del proyecto (20). Para las dem\'{a}s, TFL = m\'{i}nimo de los TL de
@@ -783,7 +788,7 @@ valores obtenidos para cada actividad, partiendo desde la \'{u}ltima actividad
   \caption{Backward Pass: tiempos de inicio y finalizaci\'{o}n m\'{a}s tard\'{i}os (d\'{i}as).}
 \end{table}
 
-\subsection{C\'{a}lculo de holguras y ruta cr\'{i}tica}
+\subsubsection{C\'{a}lculo de holguras y ruta cr\'{i}tica}
 
 \begin{equation}
   H = TL - TE \qquad \text{(actividad cr\'{i}tica si } H = 0\text{)}
@@ -881,7 +886,7 @@ h\'{a}biles}, reflejada mediante una extensi\'{o}n diferenciada en su barra de t
   \textcolor{blue!60}{\rule{0.8cm}{4pt}} Actividad C con holgura de 2 d\'{i}as.}
 \end{figure}
 
-\subsection{Verificaci\'{o}n del plazo}
+\subsection{An\'{a}lisis de cumplimiento de plazo}
 
 Con base en los resultados obtenidos mediante el an\'{a}lisis PERT/CPM, es posible 
 verificar de manera concluyente el cumplimiento del plazo establecido para el proyecto. 
@@ -927,6 +932,9 @@ compresi\'{o}n.}
 \end{cajares}
 
 % ════════════════════════════════════════════════════════════════════════════
+
+\newpage
+
 \section{Conclusiones y recomendaciones}
 
 \subsection{Resumen de hallazgos}
