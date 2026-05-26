@@ -162,22 +162,38 @@
 \section*{Resumen}
 \addcontentsline{toc}{section}{Resumen}
 
-El presente proyecto aplica t\'{e}cnicas de Investigaci\'{o}n de Operaciones para optimizar la log\'{i}stica de distribuci\'{o}n 
-de una planta embotelladora de agua purificada. Para el an\'{a}lisis computacional y la resoluci\'{o}n del problema log\'{i}stico, se emple\'{o} el entorno de programaci\'{o}n y 
-software estad\'{i}stico R. La implementaci\'{o}n t\'{e}cnica se apoy\'{o} en el uso de librer\'{i}as especializadas requeridas 
-para el proyecto, destacando principalmente \texttt{lpSolve} para la ejecuci\'{o}n algor\'{i}tmica y resoluci\'{o}n del modelo 
-matem\'{a}tico de optimizaci\'{o}n.
+El presente proyecto aplica t\'{e}cnicas de Investigaci\'{o}n de Operaciones para optimizar 
+la log\'{i}stica de distribuci\'{o}n de una planta embotelladora de agua purificada. Para el 
+an\'{a}lisis computacional y la resoluci\'{o}n del problema log\'{i}stico, se emple\'{o} el 
+entorno de programaci\'{o}n y software estad\'{i}stico R. La implementaci\'{o}n t\'{e}cnica 
+se apoy\'{o} en el uso de librer\'{i}as especializadas, destacando principalmente 
+\texttt{lpSolve} para la resoluci\'{o}n del modelo de optimizaci\'{o}n, e \texttt{igraph} 
+junto con \texttt{ggplot2} para la construcci\'{o}n de los diagramas de red y 
+representaciones gr\'{a}ficas.
 
-En esta fase del estudio, se formul\'{o} y resolvi\'{o} un \textbf{modelo de transporte} utilizando el m\'{e}todo 
-de \textbf{Programaci\'{o}n Lineal}. El objetivo central consisti\'{o} en minimizar los costos semanales de distribuci\'{o}n 
-desde 3 plantas de producci\'{o}n hacia 4 centros de distribuci\'{o}n. Tras el procesamiento de los datos, el modelo arroj\'{o} 
-una soluci\'{o}n \'{o}ptima factible que establece un \textbf{costo m\'{i}nimo de \$1\,180 por semana}, operando en un sistema 
-log\'{i}stico donde la oferta y la demanda se encuentran perfectamente balanceadas.
+En la primera parte del estudio, se formul\'{o} y resolvi\'{o} un \textbf{modelo de 
+transporte} mediante \textbf{Programaci\'{o}n Lineal}. El objetivo central consisti\'{o} en 
+minimizar los costos semanales de distribuci\'{o}n desde 3 plantas de producci\'{o}n hacia 
+4 centros de distribuci\'{o}n, con una oferta y demanda perfectamente balanceadas de 
+150 miles de litros por semana. Tras el procesamiento de los datos con \texttt{lpSolve}, 
+el modelo arroj\'{o} una soluci\'{o}n \'{o}ptima factible que establece un 
+\textbf{costo m\'{i}nimo de \$1\,180 por semana}, activando \'{u}nicamente 5 de las 12 
+rutas posibles y operando las tres plantas al 100\,\% de su capacidad. Adicionalmente, 
+se realiz\'{o} un an\'{a}lisis de sensibilidad que evidenci\'{o} que un incremento de 
+apenas 10 miles de litros en la demanda de CD4 tornar\'{i}a el sistema infactible, lo que 
+subraya la necesidad de planificar con anticipaci\'{o}n la expansi\'{o}n de la capacidad 
+productiva.
 
-En la segunda parte, se aplic\'{o} \textbf{PERT/CPM} al proyecto de instalaci\'{o}n de una nueva red de
-distribuci\'{o}n (7 actividades), determinando que la duraci\'{o}n total es de \textbf{20 d\'{i}as
-h\'{a}biles}, cumpliendo ampliamente con el l\'{i}mite de 40 d\'{i}as establecido, con una holgura
-global de 20 d\'{i}as. La ruta cr\'{i}tica identificada es \textbf{A $\to$ B $\to$ D $\to$ E $\to$ F $\to$ G}.
+En la segunda parte, se aplic\'{o} la metodolog\'{i}a \textbf{PERT/CPM} al proyecto de 
+instalaci\'{o}n de una nueva red de distribuci\'{o}n, compuesto por 7 actividades con 
+relaciones de precedencia secuenciales y paralelas. Mediante el diagrama de red AOA, 
+el recorrido progresivo (\textit{Forward Pass}) y el recorrido regresivo 
+(\textit{Backward Pass}), se determin\'{o} que la duraci\'{o}n total del proyecto es de 
+\textbf{20 d\'{i}as h\'{a}biles}, cumpliendo ampliamente con el l\'{i}mite m\'{a}ximo 
+establecido de 40 d\'{i}as y contando con una holgura global de 20 d\'{i}as. La ruta 
+cr\'{i}tica identificada es \textbf{A $\to$ B $\to$ D $\to$ E $\to$ F $\to$ G}, 
+conformada por 6 de las 7 actividades, siendo la actividad \textbf{C} (Instalaci\'{o}n 
+en CD1) la \'{u}nica con holgura interna de 2 d\'{i}as.
 
 % ════════════════════════════════════════════════════════════════════════════
 \section{Informaci\'{o}n general del proyecto}
@@ -598,12 +614,17 @@ posterior análisis PERT/CPM.
 
 \subsection{Diagrama de red}
 
-A fin de representar las relaciones de precedencia entre las actividades del proyecto y facilitar la 
-identificación de la ruta crítica, se construye el siguiente diagrama de red bajo la metodología PERT/CPM. 
-En él, cada nodo corresponde a una actividad y las flechas indican el orden de ejecución requerido; 
-las actividades resaltadas en rojo conforman la ruta crítica $A \to B \to D \to E \to F \to G$, cuya duración 
-total determina el plazo mínimo de ejecución del proyecto.
-
+A fin de representar gr\'{a}ficamente las relaciones de precedencia entre las actividades 
+del proyecto y facilitar la identificaci\'{o}n de la ruta cr\'{i}tica, se construye el 
+siguiente diagrama de red bajo la notaci\'{o}n \textbf{AOA} (\textit{Activity On Arrow}). 
+En esta representaci\'{o}n, cada flecha corresponde a una actividad y cada nodo numerado 
+representa un evento o punto de control en el tiempo; adicionalmente, se incorpora una 
+\textbf{actividad ficticia} de duraci\'{o}n cero para modelar correctamente la dependencia 
+de la actividad \textbf{E} respecto a las actividades \textbf{C} y \textbf{D}. Las 
+actividades que conforman la ruta cr\'{i}tica 
+\textbf{A $\to$ B $\to$ D $\to$ E $\to$ F $\to$ G} determinan el plazo m\'{i}nimo de 
+ejecuci\'{o}n del proyecto y no admiten ning\'{u}n retraso sin comprometer la fecha de 
+conclusi\'{o}n.
 
 \begin{figure}[H]
 \centering
@@ -675,10 +696,24 @@ El \textbf{tiempo de inicio m\'{a}s temprano} (TE) es el m\'{a}ximo de los tiemp
 finalizaci\'{o}n m\'{a}s tempranos de sus predecesores. El \textbf{tiempo de finalizaci\'{o}n
 m\'{a}s temprano} (TF) es TE $+$ duraci\'{o}n.
 
-A partir de la estructura de red definida, se procede al cálculo de los tiempos tempranos 
-mediante el recorrido progresivo (Forward Pass). La siguiente tabla muestra, para cada 
-actividad, el tiempo de inicio más temprano (TE) y el tiempo de finalización más temprano (TF), 
-determinados a partir de los tiempos de finalización de sus predecesores inmediatos.
+\begin{equation}
+  TE_i = \max_{p \,\in\, \text{pred}(i)} TF_p
+\end{equation}
+\begin{equation}
+  TF_i = TE_i + d_i 
+\end{equation}
+
+\noindent
+Donde $d_i$ corresponde a la duraci\'{o}n de la actividad $i$ y $\text{pred}(i)$ al 
+conjunto de actividades predecesoras. Para la actividad inicial, $TE = 0$.\\
+
+A partir de la estructura de red definida, se procede al c\'{a}lculo de los tiempos 
+tempranos mediante el recorrido progresivo (\textit{Forward Pass}). Seg\'{u}n las 
+Ecuaciones~11 y~12, el tiempo de inicio m\'{a}s temprano ($TE$) de cada actividad se 
+obtiene como el m\'{a}ximo de los tiempos de finalizaci\'{o}n m\'{a}s tempranos de sus 
+predecesores inmediatos, mientras que el tiempo de finalizaci\'{o}n m\'{a}s temprano 
+($TF$) resulta de sumar dicho inicio a la duraci\'{o}n de la actividad. La siguiente 
+tabla presenta los valores calculados para cada actividad del proyecto.
 
 \begin{table}[H]
   \centering
@@ -709,10 +744,25 @@ El \textbf{tiempo de finalizaci\'{o}n m\'{a}s tard\'{i}o} (TFL) de la \'{u}ltima
 igual a la duraci\'{o}n del proyecto (20). Para las dem\'{a}s, TFL = m\'{i}nimo de los TL de
 sus sucesores. El \textbf{tiempo de inicio m\'{a}s tard\'{i}o} (TL) es TFL $-$ duraci\'{o}n.\\
 
-Una vez determinada la duración total del proyecto (20 días hábiles), se realiza el recorrido 
-regresivo (Backward Pass) para calcular los tiempos tardíos. El siguiente cuadro presenta 
-el tiempo de inicio más tardío (TL) y el tiempo de finalización más tardío (TFL) admisibles 
-para cada actividad sin que se vea comprometida la fecha de conclusión del proyecto.
+\begin{equation}
+  TFL_i = \min_{s \,\in\, \text{suc}(i)} TL_s
+\end{equation}
+\begin{equation}
+  TL_i = TFL_i - d_i
+\end{equation}
+
+\noindent
+Donde $\text{suc}(i)$ representa el conjunto de actividades sucesoras de $i$. 
+Para la actividad final, $TFL = $ duraci\'{o}n total del proyecto.
+
+Una vez determinada la duraci\'{o}n total del proyecto (20 d\'{i}as h\'{a}biles), se 
+realiza el recorrido regresivo (\textit{Backward Pass}) aplicando las Ecuaciones~13 
+y~14. El tiempo de finalizaci\'{o}n m\'{a}s tard\'{i}o ($TFL$) de cada actividad se 
+obtiene como el m\'{i}nimo de los tiempos de inicio m\'{a}s tard\'{i}os de sus 
+sucesores, en tanto que el tiempo de inicio m\'{a}s tard\'{i}o ($TL$) resulta de 
+restar la duraci\'{o}n al $TFL$ correspondiente. El siguiente cuadro presenta los 
+valores obtenidos para cada actividad, partiendo desde la \'{u}ltima actividad 
+\textbf{G} hacia la primera.
 
 \begin{table}[H]
   \centering
@@ -739,9 +789,13 @@ para cada actividad sin que se vea comprometida la fecha de conclusión del proy
   H = TL - TE \qquad \text{(actividad cr\'{i}tica si } H = 0\text{)}
 \end{equation}
 
-Con los tiempos tempranos y tardíos ya calculados, la siguiente tabla consolida la información completa de cada 
-actividad e incorpora el cálculo de holgura (Ecuación 10), permitiendo identificar cuáles actividades conforman la ruta crítica. 
-Aquellas con holgura igual a cero no admiten ningún retraso sin afectar la duración total del proyecto.
+Con los tiempos tempranos y tardíos ya calculados mediante las ecuaciones 
+anteriores, la siguiente tabla consolida la información completa de cada 
+actividad e incorpora el cálculo de holgura total definido en la Ecuación 14. 
+Una holgura igual a cero indica que la actividad pertenece a la ruta crítica 
+y no admite ningún retraso sin impactar directamente la duración total del 
+proyecto; en contraste, una holgura positiva refleja la flexibilidad disponible 
+para postergar el inicio de dicha actividad sin consecuencias sobre el cronograma.
 
 \begin{table}[H]
   \centering
@@ -758,7 +812,7 @@ Aquellas con holgura igual a cero no admiten ningún retraso sin afectar la dura
     B & Compra de v\'{a}lvulas & 3 & 5  & 8  & 5  & \textbf{0} & \textbf{S\'{I}} \\
     \hline
     \rowcolor{amarilloHolgura}
-    C & Instalaci\'{o}n CD1    & 4 & 8  & 12 & 10 & 2 & no \\
+    C & Instalaci\'{o}n CD1    & 4 & 8  & 12 & 10 & 2 & NO \\
     \hline
     \rowcolor{red!12}
     D & Instalaci\'{o}n CD2    & 6 & 8  & 14 & 8  & \textbf{0} & \textbf{S\'{I}} \\
@@ -787,11 +841,16 @@ iniciarse hasta el d\'{i}a 10 sin afectar la duraci\'{o}n total del proyecto.
 
 \subsection{Diagrama de Gantt}
 
-Para complementar el análisis temporal del proyecto y ofrecer una visión clara del cronograma de ejecución, 
-se presenta a continuación el diagrama de Gantt correspondiente a las siete actividades planificadas. La 
-representación distingue visualmente entre las actividades críticas —aquellas que no admiten ningún retraso 
-sin comprometer la fecha de finalización— y la actividad C, que cuenta con una holgura de 2 días hábiles, 
-reflejada mediante una extensión en su barra de tiempo.
+Para complementar el an\'{a}lisis temporal del proyecto y ofrecer una visi\'{o}n integral 
+del cronograma de ejecuci\'{o}n, se presenta a continuaci\'{o}n el diagrama de Gantt 
+correspondiente a las siete actividades planificadas. Este diagrama permite visualizar 
+de forma simult\'{a}nea la secuencia de ejecuci\'{o}n, las duraciones individuales y el 
+paralelismo entre las actividades \textbf{C} y \textbf{D}, que se desarrollan de manera 
+concurrente tras la finalizaci\'{o}n de la actividad \textbf{B}. La representaci\'{o}n 
+distingue visualmente entre las \textbf{actividades cr\'{i}ticas} ---aquellas que no 
+admiten ning\'{u}n retraso sin comprometer la fecha de finalizaci\'{o}n del 
+proyecto--- y la actividad \textbf{C}, que cuenta con una holgura de \textbf{2 d\'{i}as 
+h\'{a}biles}, reflejada mediante una extensi\'{o}n diferenciada en su barra de tiempo.
 
 \begin{figure}[H]
 \centering
@@ -824,27 +883,48 @@ reflejada mediante una extensión en su barra de tiempo.
 
 \subsection{Verificaci\'{o}n del plazo}
 
+Con base en los resultados obtenidos mediante el an\'{a}lisis PERT/CPM, es posible 
+verificar de manera concluyente el cumplimiento del plazo establecido para el proyecto. 
+La duraci\'{o}n total calculada asciende a \textbf{20 d\'{i}as h\'{a}biles} 
+---equivalentes a 4 semanas---, resultado que se obtiene sumando las duraciones de las 
+actividades que conforman la ruta cr\'{i}tica:
+\[
+  5 + 3 + 6 + 2 + 3 + 1 = 20 \text{ d\'{i}as.}
+\]
+Este valor cumple ampliamente con el l\'{i}mite m\'{a}ximo de \textbf{40 d\'{i}as 
+h\'{a}biles} (8 semanas) fijado por la empresa, finalizando el proyecto exactamente 
+20 d\'{i}as antes del plazo, lo que representa una \textbf{holgura global del 
+50\,\%} respecto al tiempo disponible. Dicho margen constituye un colch\'{o}n 
+suficiente para absorber imprevistos operativos, retrasos en adquisiciones o 
+contingencias t\'{e}cnicas sin comprometer la fecha de entrega, por lo que 
+\textbf{no se requieren acciones de compresi\'{o}n} (\textit{crashing}).
+
+En t\'{e}rminos de flexibilidad interna, la actividad \textbf{C} (Instalaci\'{o}n en 
+CD1) es la \'{u}nica que dispone de holgura propia de \textbf{2 d\'{i}as}, pudiendo 
+iniciarse en cualquier momento entre el d\'{i}a~8 y el d\'{i}a~10 sin afectar el 
+cronograma general. Cabe se\~{n}alar que, dado el alto porcentaje de actividades 
+cr\'{i}ticas (6 de 7, equivalente al \textbf{86\,\%}), la gesti\'{o}n del riesgo debe 
+enfocarse prioritariamente en la actividad \textbf{D} (Instalaci\'{o}n en CD2), que 
+con 6 d\'{i}as representa la actividad de mayor duraci\'{o}n dentro de la ruta 
+cr\'{i}tica y, por tanto, el punto de mayor exposici\'{o}n a retrasos.
+
+En el hip\'{o}tético caso de que el proyecto superara el l\'{i}mite de 40 d\'{i}as, 
+las acciones de compresi\'{o}n recomendadas ser\'{i}an:
 \begin{enumerate}
-  \item \textbf{Duraci\'{o}n total del proyecto:} \textbf{20 d\'{i}as h\'{a}biles} (4 semanas).
-  Suma de la ruta cr\'{i}tica: $5+3+6+2+3+1 = 20$ d\'{i}as.
-
-  \item \textbf{Cumplimiento del l\'{i}mite de 40 d\'{i}as:} S\'{i}, ampliamente.
-  El proyecto termina 20 d\'{i}as antes del l\'{i}mite.
-
-  \item \textbf{Holgura global del proyecto:} $40 - 20 = \mathbf{20}$ d\'{i}as h\'{a}biles
-  de margen disponible. No se requieren acciones de compresi\'{o}n (crashing).
-
-  \item \textbf{Holgura interna:} La actividad \textbf{C} (Instalaci\'{o}n CD1)
-  tiene 2 d\'{i}as de holgura: puede iniciarse entre el d\'{i}a 8 y el d\'{i}a 10
-  sin comprometer el cronograma.
+  \item Asignaci\'{o}n de recursos adicionales a la actividad \textbf{D} para reducir 
+  su duraci\'{o}n mediante ejecuci\'{o}n en turnos extendidos o paralelizaci\'{o}n de 
+  tareas de instalaci\'{o}n.
+  \item Solapamiento parcial entre las actividades \textbf{E} (Pruebas de flujo) y 
+  \textbf{F} (Capacitaci\'{o}n), ejecutando la capacitaci\'{o}n te\'{o}rica de forma 
+  simult\'{a}nea con las etapas finales de las pruebas, reduciendo as\'{i} la 
+  duraci\'{o}n efectiva de la secuencia \textbf{E $\to$ F}.
 \end{enumerate}
 
 \begin{cajares}
-El proyecto tiene suficiente margen para absorber imprevistos de hasta 20 d\'{i}as h\'{a}biles
-sin incumplir el plazo. \textbf{No se requieren acciones de compresi\'{o}n.}
+El proyecto tiene suficiente margen para absorber imprevistos de hasta \textbf{20 
+d\'{i}as h\'{a}biles} sin incumplir el plazo. \textbf{No se requieren acciones de 
+compresi\'{o}n.}
 \end{cajares}
-
-\newpage
 
 % ════════════════════════════════════════════════════════════════════════════
 \section{Conclusiones y recomendaciones}
@@ -869,6 +949,13 @@ sin incumplir el plazo. \textbf{No se requieren acciones de compresi\'{o}n.}
   \item \textbf{Riesgo operativo:} El 85\,\% de las actividades son cr\'{i}ticas,
   por lo que casi cualquier retraso individual afecta la fecha de conclusi\'{o}n.
   La \'{u}nica flexibilidad interna es la actividad C (2 d\'{i}as de holgura).
+
+  \item\noindent\textbf{Eficiencia de la soluci\'{o}n:} El modelo de transporte activ\'{o} 
+  \'{u}nicamente el \textbf{41.7\,\%} de las rutas disponibles (5 de 12), lo que refleja 
+  una soluci\'{o}n altamente concentrada y especializada. Esto, si bien minimiza costos, 
+  genera \textbf{dependencia estructural} en rutas clave como \textbf{Planta A $\to$ CD2} 
+  y \textbf{Planta C $\to$ CD4}, cuya interrupci\'{o}n afectar\'{i}a directamente el 
+  cumplimiento de la demanda sin alternativas inmediatas de bajo costo.
 \end{enumerate}
 
 \subsection{Respuesta: \textquestiondown se puede ejecutar el proyecto en 8 semanas?}
@@ -894,6 +981,14 @@ riesgos sin comprometer el plazo.
 
   \item \textbf{Actividad C:} Aprovechar la holgura de 2 d\'{i}as para revisar la
   calidad de los materiales antes del inicio, reduciendo el riesgo de retrabajos.
+
+  \item \noindent\textbf{Diversificaci\'{o}n de rutas de contingencia:} Dado que el 
+  \textbf{58.3\,\%} de las rutas permanecen inactivas por no ser \'{o}ptimas en el 
+  escenario base, se recomienda identificar las rutas de menor costo entre las inactivas 
+  ---como \textbf{Planta B $\to$ CD4} (\$7) y \textbf{Planta C $\to$ CD2} (\$9)--- y 
+  mantenerlas como alternativas documentadas ante fallos operativos o picos de demanda 
+  imprevistos, aceptando el sobrecosto marginal como \textbf{costo de resiliencia 
+  log\'{i}stica}.
 \end{enumerate}
 
 \subsection{Limitaciones del estudio}
@@ -905,6 +1000,12 @@ riesgos sin comprometer el plazo.
   con distribuciones probabil\'{i}sticas (estimaciones optimista/m\'{a}s probable/pesimista)
   dar\'{i}a una estimaci\'{o}n de riesgo m\'{a}s robusta.
   \item No se consideraron costos de inventario ni restricciones de frecuencia de entrega.
+  \item El modelo de transporte 
+  considera una sola planta como fuente exclusiva para ciertos destinos (como 
+  \textbf{Planta C} para \textbf{CD4}), lo que introduce fragilidad ante interrupciones 
+  productivas. Un modelo de \textbf{optimizaci\'{o}n robusta} o \textbf{multiescenario} 
+  permitir\'{i}a evaluar soluciones alternativas con mayor resiliencia ante 
+  perturbaciones.
 \end{itemize}
 
 \newpage
