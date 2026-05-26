@@ -26,7 +26,6 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{microtype}
-\usepackage{tikz}
 \usetikzlibrary{arrows.meta, positioning}
 
 % ─── Colores ───────────────────────────────────────────────────────────────
@@ -148,6 +147,16 @@
   \end{tabular}
 }
 
+% ─────────────────────────────────────────────────────────────
+\usepackage[
+  backend=biber,
+  style=ieee,
+  sorting=none,
+  urldate=long
+]{biblatex}
+
+\addbibresource{refs.bib}
+
 % ════════════════════════════════════════════════════════════════════════════
 \begin{document}
 
@@ -163,31 +172,31 @@
 \addcontentsline{toc}{section}{Resumen}
 
 El presente proyecto aplica t\'{e}cnicas de Investigaci\'{o}n de Operaciones para optimizar 
-la log\'{i}stica de distribuci\'{o}n de una planta embotelladora de agua purificada. Para el 
-an\'{a}lisis computacional y la resoluci\'{o}n del problema log\'{i}stico, se emple\'{o} el 
-entorno de programaci\'{o}n y software estad\'{i}stico R. La implementaci\'{o}n t\'{e}cnica 
-se apoy\'{o} en el uso de librer\'{i}as especializadas, destacando principalmente 
-\texttt{lpSolve} para la resoluci\'{o}n del modelo de optimizaci\'{o}n, e \texttt{igraph} 
-junto con \texttt{ggplot2} para la construcci\'{o}n de los diagramas de red y 
-representaciones gr\'{a}ficas.\\
+la log\'{i}stica de distribuci\'{o}n de una planta embotelladora de agua purificada \cite{taha2012}. 
+Para el an\'{a}lisis computacional y la resoluci\'{o}n del problema log\'{i}stico, se emple\'{o} 
+el entorno de programaci\'{o}n y software estad\'{i}stico R \cite{rprogramming2024}. La 
+implementaci\'{o}n t\'{e}cnica se apoy\'{o} en el uso de librer\'{i}as especializadas, 
+destacando principalmente \texttt{lpSolve} para la resoluci\'{o}n del modelo de 
+optimizaci\'{o}n, e \texttt{igraph} junto con \texttt{ggplot2} para la construcci\'{o}n 
+de los diagramas de red y representaciones gr\'{a}ficas.\\
 
 En la primera parte del estudio, se formul\'{o} y resolvi\'{o} un \textbf{modelo de 
-transporte} mediante \textbf{Programaci\'{o}n Lineal}. El objetivo central consisti\'{o} en 
-minimizar los costos semanales de distribuci\'{o}n desde 3 plantas de producci\'{o}n hacia 
-4 centros de distribuci\'{o}n, con una oferta y demanda perfectamente balanceadas de 
-150 miles de litros por semana. Tras el procesamiento de los datos con \texttt{lpSolve}, 
-el modelo arroj\'{o} una soluci\'{o}n \'{o}ptima factible que establece un 
+transporte} mediante \textbf{Programaci\'{o}n Lineal} \cite{hillier2015}. El objetivo 
+central consisti\'{o} en minimizar los costos semanales de distribuci\'{o}n desde 3 plantas 
+de producci\'{o}n hacia 4 centros de distribuci\'{o}n, con una oferta y demanda perfectamente 
+balanceadas de 150 miles de litros por semana. Tras el procesamiento de los datos con 
+\texttt{lpSolve}, el modelo arroj\'{o} una soluci\'{o}n \'{o}ptima factible que establece un 
 \textbf{costo m\'{i}nimo de \$1\,180 por semana}, activando \'{u}nicamente 5 de las 12 
 rutas posibles y operando las tres plantas al 100\,\% de su capacidad. Adicionalmente, 
 se realiz\'{o} un an\'{a}lisis de sensibilidad que evidenci\'{o} que un incremento de 
 apenas 10 miles de litros en la demanda de CD4 tornar\'{i}a el sistema infactible, lo que 
 subraya la necesidad de planificar con anticipaci\'{o}n la expansi\'{o}n de la capacidad 
-productiva.\\
+productiva \cite{winston2005}.\\
 
 En la segunda parte, se aplic\'{o} la metodolog\'{i}a \textbf{PERT/CPM} al proyecto de 
-instalaci\'{o}n de una nueva red de distribuci\'{o}n, compuesto por 7 actividades con 
-relaciones de precedencia secuenciales y paralelas. Mediante el diagrama de red AOA, 
-el recorrido progresivo (\textit{Forward Pass}) y el recorrido regresivo 
+instalaci\'{o}n de una nueva red de distribuci\'{o}n \cite{render2012}, compuesto por 
+7 actividades con relaciones de precedencia secuenciales y paralelas. Mediante el diagrama 
+de red AOA, el recorrido progresivo (\textit{Forward Pass}) y el recorrido regresivo 
 (\textit{Backward Pass}), se determin\'{o} que la duraci\'{o}n total del proyecto es de 
 \textbf{20 d\'{i}as h\'{a}biles}, cumpliendo ampliamente con el l\'{i}mite m\'{a}ximo 
 establecido de 40 d\'{i}as y contando con una holgura global de 20 d\'{i}as. La ruta 
@@ -225,9 +234,9 @@ en CD1) la \'{u}nica con holgura interna de 2 d\'{i}as.
 Al completar este proyecto, el estudiante es capaz de:
 
 \begin{enumerate}
-  \item Formular un problema de transporte como un modelo de Programaci\'{o}n Lineal.
-  \item Implementar la soluci\'{o}n en R con el paquete \texttt{lpSolve}.
-  \item Calcular tiempos tempranos, tard\'{i}os, holguras y ruta cr\'{i}tica con PERT/CPM.
+  \item Formular un problema de transporte como un modelo de Programaci\'{o}n Lineal \cite{taha2012}.
+  \item Implementar la soluci\'{o}n en R con el paquete \texttt{lpSolve} \cite{rprogramming2024}.
+  \item Calcular tiempos tempranos, tard\'{i}os, holguras y ruta cr\'{i}tica con PERT/CPM \cite{render2012}.
   \item Interpretar los resultados en t\'{e}rminos de costos y tiempos.
   \item Presentar conclusiones ejecutivas con soporte gr\'{a}fico.
 \end{enumerate}
@@ -244,16 +253,16 @@ distribuci\'{o}n compuesto por 7 actividades secuenciales y paralelas.
 % ════════════════════════════════════════════════════════════════════════════
 \section{Parte 1: Modelo de transporte}
 
-\subsection{Descripción del problema}
+\subsection{Descripci\'{o}n del problema}
 
-Se debe determinar cuántos miles de litros enviar desde cada planta a cada CD para
-\textbf{minimizar el costo total de transporte}, respetando las capacidades máximas de
-producción de cada planta y satisfaciendo la demanda mínima de cada centro de
-distribución.
+Se debe determinar cu\'{a}ntos miles de litros enviar desde cada planta a cada CD para
+\textbf{minimizar el costo total de transporte} \cite{taha2012}, respetando las capacidades 
+m\'{a}ximas de producci\'{o}n de cada planta y satisfaciendo la demanda m\'{i}nima de cada 
+centro de distribuci\'{o}n.
 
 \subsection{Datos proporcionados}
 
-\subsubsection{Capacidad de producción (miles de litros/semana)}
+\subsubsection{Capacidad de producci\'{o}n (miles de litros/semana)}
 
 \begin{table}[H]
   \centering
@@ -284,18 +293,18 @@ distribución.
 \end{table}
 
 \begin{cajaobs}
-La oferta total (150) es igual a la demanda total (150): el problema está
-\textbf{balanceado}, por lo que no es necesario agregar una planta o CD ficticio.
+La oferta total (150) es igual a la demanda total (150): el problema est\'{a}
+\textbf{balanceado}, por lo que no es necesario agregar una planta o CD ficticio \cite{taha2012}.
 \end{cajaobs}
 
 \subsubsection{Costos de transporte (\$/miles de litros)}
 
-A continuación se presenta la matriz de costos unitarios de transporte
- (en dólares por cada mil litros), la cual refleja el costo asociado a cada 
- posible ruta entre las tres plantas de producción y los cuatro centros de 
- distribución. Estos valores constituyen los coeficientes de la función objetivo 
- del modelo de programación lineal y son determinantes para identificar 
- las rutas más eficientes.
+A continuaci\'{o}n se presenta la matriz de costos unitarios de transporte
+ (en d\'{o}lares por cada mil litros), la cual refleja el costo asociado a cada 
+ posible ruta entre las tres plantas de producci\'{o}n y los cuatro centros de 
+ distribuci\'{o}n. Estos valores constituyen los coeficientes de la funci\'{o}n objetivo 
+ del modelo de programaci\'{o}n lineal y son determinantes para identificar 
+ las rutas m\'{a}s eficientes \cite{hillier2015}.
 
 \begin{table}[H]
   \centering
@@ -316,16 +325,19 @@ A continuación se presenta la matriz de costos unitarios de transporte
 % ════════════════════════════════════════════════════════════════════════════
 
 % ─────────────────────────────────────────────────────────────────────────
-\subsubsection{Formulación matemática}
+\subsubsection{Formulaci\'{o}n matem\'{a}tica}
 % ─────────────────────────────────────────────────────────────────────────
 
-\noindent\textbf{Variables de decisión:}
+El modelo de transporte es una clase especial de problema de programaci\'{o}n lineal 
+cuya estructura permite resolverlo de manera eficiente \cite{taha2012,hillier2015}.
+
+\noindent\textbf{Variables de decisi\'{o}n:}
 \[
   x_{ij} = \text{miles de litros desde Planta } i \text{ hacia CD } j
   \text{ con } i \in \{A,B,C\}, \, j \in \{1,2,3,4\}
 \]
 
-\noindent\textbf{Función objetivo:}
+\noindent\textbf{Funci\'{o}n objetivo:}
 \begin{equation}
   \min Z = \sum_{i \in \{A,B,C\}} \sum_{j=1}^{4} c_{ij}\, x_{ij}
 \end{equation}
@@ -344,7 +356,7 @@ Expandida:
   x_{C1} + x_{C2} + x_{C3} + x_{C4} &\leq 40 \quad \text{(Planta C)}
 \end{align}
 
-\noindent\textbf{Restricciones de demanda} (satisfacer mínimo requerido):
+\noindent\textbf{Restricciones de demanda} (satisfacer m\'{i}nimo requerido):
 \begin{align}
   x_{A1} + x_{B1} + x_{C1} &\geq 30 \quad \text{(CD1)} \\
   x_{A2} + x_{B2} + x_{C2} &\geq 45 \quad \text{(CD2)} \\
@@ -358,13 +370,14 @@ Expandida:
 \end{equation}
 
 % ─────────────────────────────────────────────────────────────────────────
-\subsubsection{Tabla de resultados (matriz de envíos)}
+\subsubsection{Tabla de resultados (matriz de env\'{i}os)}
 % ─────────────────────────────────────────────────────────────────────────
 
-Tras la resolución del modelo mediante el paquete lpSolve en R, se obtiene la siguiente 
-matriz de envíos óptimos, la cual indica la cantidad exacta (en miles de litros por semana) 
-que debe enviarse desde cada planta hacia cada centro de distribución para minimizar el 
-costo total de transporte. Las celdas resaltadas corresponden a las rutas activas 
+Tras la resoluci\'{o}n del modelo mediante el paquete \texttt{lpSolve} en R 
+\cite{rprogramming2024}, se obtiene la siguiente matriz de env\'{i}os \'{o}ptimos, la 
+cual indica la cantidad exacta (en miles de litros por semana) que debe enviarse desde 
+cada planta hacia cada centro de distribuci\'{o}n para minimizar el costo total de 
+transporte. Las celdas resaltadas corresponden a las rutas activas 
 seleccionadas por el algoritmo.
 
 \begin{table}[H]
@@ -384,16 +397,16 @@ seleccionadas por el algoritmo.
     \textbf{Total} & \textbf{30} & \textbf{45} & \textbf{35} & \textbf{40} & \textbf{150} \\
     \hline
   \end{tabular}
-  \caption{Matriz de envíos óptimos (miles de litros/semana). Verde: rutas activas.}
+  \caption{Matriz de env\'{i}os \'{o}ptimos (miles de litros/semana). Verde: rutas activas.}
 \end{table}
 
 \noindent\textbf{Rutas activas y costos:}
 
-Con base en la solución óptima obtenida, el siguiente cuadro detalla únicamente las 
-cinco rutas que el modelo activó de las doce posibles, especificando el volumen 
+Con base en la soluci\'{o}n \'{o}ptima obtenida, el siguiente cuadro detalla \'{u}nicamente 
+las cinco rutas que el modelo activ\'{o} de las doce posibles, especificando el volumen 
 transportado, el costo unitario aplicado y el costo parcial generado por cada ruta. 
-Las siete rutas restantes fueron descartadas por presentar costos unitarios superiores 
-a las alternativas seleccionadas.
+Las siete rutas restantes fueron descartadas por presentar costos unitarios superiores a 
+las alternativas seleccionadas.
 
 \begin{table}[H]
   \centering
@@ -415,74 +428,73 @@ a las alternativas seleccionadas.
   \caption{5 rutas activas (de 12 posibles). Las 7 rutas inactivas tienen costos superiores.}
 \end{table}
 
-\noindent\textbf{Verificación de restricciones:}
+\noindent\textbf{Verificaci\'{o}n de restricciones:}
 
 \begin{itemize}
-  \item \textbf{Oferta:} Todas las plantas envían al 100\% de su capacidad (50, 60, 40).
+  \item \textbf{Oferta:} Todas las plantas env\'{i}an al 100\% de su capacidad (50, 60, 40).
   \item \textbf{Demanda:} Todos los CDs reciben exactamente lo que demandan (30, 45, 35, 40).
-  \item \textbf{No negatividad:} Todos los envíos son mayor o igual a 0.
+  \item \textbf{No negatividad:} Todos los env\'{i}os son mayor o igual a 0.
 \end{itemize}
 
 \begin{cajares}
-\textbf{Costo mínimo total: \$1\,180 por semana}
+\textbf{Costo m\'{i}nimo total: \$1\,180 por semana}
 \end{cajares}
+
 % ─────────────────────────────────────────────────────────────────────────
-\subsubsection{Análisis de sensibilidad (al menos una variación)}
+\subsubsection{An\'{a}lisis de sensibilidad (al menos una variaci\'{o}n)}
 % ─────────────────────────────────────────────────────────────────────────
 
 \noindent\textbf{Escenario: Aumento de demanda en CD4 de 40 a 50 mil litros/semana}
 
-
 Con el fin de evaluar la robustez del modelo ante variaciones en la demanda, 
-se analiza el siguiente escenario: un incremento en el requerimiento del CD4 
-de 40 a 50 miles de litros por semana. El cuadro comparativo muestra el impacto 
-de dicho cambio sobre la factibilidad del sistema y el costo mínimo calculado.
+se analiza el siguiente escenario: un incremento en el requerimiento del CD4 de 40 a 50 
+miles de litros por semana. El cuadro comparativo muestra el impacto de dicho cambio sobre 
+la factibilidad del sistema y el costo m\'{i}nimo calculado.
 
 \begin{table}[H]
   \centering
   \begin{tabular}{|l|c|c|c|}
     \hline
     \rowcolor{azulClaro}
-    \textbf{Métrica} & \textbf{Escenario base} & \textbf{CD4 = 50} & \textbf{Diferencia} \\
+    \textbf{M\'{e}trica} & \textbf{Escenario base} & \textbf{CD4 = 50} & \textbf{Diferencia} \\
     \hline
     Oferta total (miles L)     & 150 & 150 & 0 \\
     Demanda total (miles L)    & 150 & 160 & \textcolor{red}{+10} \\
     Estado                     & Factible & \textbf{Infactible} & --- \\
-    Costo mínimo (\$/semana)   & 1\,180 & No existe & --- \\
+    Costo m\'{i}nimo (\$/semana)   & 1\,180 & No existe & --- \\
     \hline
   \end{tabular}
-  \caption{Análisis de sensibilidad: variación de demanda en CD4.}
+  \caption{An\'{a}lisis de sensibilidad: variaci\'{o}n de demanda en CD4.}
 \end{table}
 
-\noindent\textbf{Conclusión del análisis:}
+\noindent\textbf{Conclusi\'{o}n del an\'{a}lisis:}
 El sistema se vuelve \textbf{infactible} cuando la demanda de CD4 alcanza 50 miles de litros,
-ya que la capacidad total de producción (150) resulta insuficiente para satisfacer la demanda
-total de 160 miles de litros. Esta limitación crítica requiere intervención inmediata.
+ya que la capacidad total de producci\'{o}n (150) resulta insuficiente para satisfacer la demanda
+total de 160 miles de litros. Esta limitaci\'{o}n cr\'{i}tica requiere intervenci\'{o}n inmediata \cite{taha2012}.
 
 \noindent\textbf{Recomendaciones:}
 \begin{enumerate}
-  \item \textbf{Ampliar capacidad productiva:} Incrementar la producción de la Planta C en
-  al menos 10 mil litros/semana. Esta opción es más económica (costo marginal: \$5/mil L
+  \item \textbf{Ampliar capacidad productiva:} Incrementar la producci\'{o}n de la Planta C en
+  al menos 10 mil litros/semana. Esta opci\'{o}n es m\'{a}s econ\'{o}mica (costo marginal: \$5/mil L
   hacia CD4, el menor de la matriz) comparada con otras plantas.
   
-  \item \textbf{Renegociar demanda:} Si la ampliación no es viable, contactar a CD4 para
+  \item \textbf{Renegociar demanda:} Si la ampliaci\'{o}n no es viable, contactar a CD4 para
   ajustar sus requerimientos a la capacidad disponible o establecer entregas escalonadas.
   
   \item \textbf{Diversificar proveedores:} Evaluar acuerdos con terceros para abastecer parte
-  de la demanda de CD4 en períodos de picos.
+  de la demanda de CD4 en per\'{i}odos de picos.
 \end{enumerate}
- 
 
 % ─────────────────────────────────────────────────────────────────────────
-\subsubsection{Gráfico de flujos}
+\subsubsection{Gr\'{a}fico de flujos}
 % ─────────────────────────────────────────────────────────────────────────
 
-Con el propósito de facilitar la comprensión visual de la solución obtenida, 
-la siguiente figura representa de forma esquemática los flujos de distribución 
-óptimos entre las plantas productoras y los centros de distribución. Cada 
-flecha indica una ruta activa, acompañada del volumen transportado en miles 
-de litros y el costo total generado por dicha ruta, permitiendo identificar 
-de un vistazo la estructura logística resultante del modelo de optimización.
+Con el prop\'{o}sito de facilitar la comprensi\'{o}n visual de la soluci\'{o}n obtenida, 
+la siguiente figura representa de forma esquem\'{a}tica los flujos de distribuci\'{o}n 
+\'{o}ptimos entre las plantas productoras y los centros de distribuci\'{o}n. 
+Cada flecha indica una ruta activa, acompa\~{n}ada del volumen transportado en miles 
+de litros y el costo total generado por dicha ruta, permitiendo identificar de un vistazo 
+la estructura log\'{i}stica resultante del modelo de optimizaci\'{o}n.
 
 \begin{figure}[H]
 \centering
@@ -516,66 +528,69 @@ de un vistazo la estructura logística resultante del modelo de optimización.
 \draw[flecha] (C) -- node[etiq, below=2pt] {40 mil. L | \$200} (CD4);
 
 \end{tikzpicture}
-\caption{Flujos óptimos de distribución. Cada flecha muestra volumen (miles de litros) y costo (\$).}
+\caption{Flujos \'{o}ptimos de distribuci\'{o}n. Cada flecha muestra volumen (miles de litros) y costo (\$).}
 \label{fig:flujos_transporte}
 \end{figure}
 
-\noindent\textbf{Interpretación:}
+\noindent\textbf{Interpretaci\'{o}n:}
 
 \begin{itemize}
-  \item \textbf{Planta A} abastece CD2 (ruta más eficiente, \$6/mil L) y complementa CD3.
+  \item \textbf{Planta A} abastece CD2 (ruta m\'{a}s eficiente, \$6/mil L) y complementa CD3.
   \item \textbf{Planta B} cubre CD1 (\$9) y CD3 (\$13), siendo la planta con mayor volumen total.
-  \item \textbf{Planta C} se especializa exclusivamente en CD4 (\$5), el costo mínimo de toda la tabla.
+  \item \textbf{Planta C} se especializa exclusivamente en CD4 (\$5), el costo m\'{i}nimo de toda la tabla.
   \item Las 7 rutas inactivas (A$\to$CD1, A$\to$CD4, B$\to$CD2, B$\to$CD4, C$\to$CD1, C$\to$CD2, C$\to$CD3)
-    tienen costos mayores a las alternativas seleccionadas por el algoritmo de optimización.
+    tienen costos mayores a las alternativas seleccionadas por el algoritmo de optimizaci\'{o}n.
 \end{itemize}
 
 % ════════════════════════════════════════════════════════════════════════════
-\subsection{Interpretación general de resultados}
+\subsection{Interpretaci\'{o}n general de resultados}
 
 \noindent
-Con los resultados obtenidos tras la resolución del modelo de programación lineal, 
-es posible afirmar que el sistema logístico opera de manera eficiente bajo un esquema 
-de especialización por ruta. En primer lugar, la \textbf{Planta B} se posiciona como 
-el nodo de mayor volumen de despacho semanal, al enviar un total de 60 miles de litros 
-(equivalente al 40\% del flujo total), cubriendo los centros CD1 y CD3 con costos unitarios 
-de \$9 y \$13 por mil litros respectivamente. Por su parte, la ruta de mayor volumen 
-individual corresponde a \textbf{Planta A $\to$ CD2}, con 45 miles de litros transportados 
-al menor costo unitario de toda la matriz (\$6/mil L); a esto se suma el envío complementario 
+Con los resultados obtenidos tras la resoluci\'{o}n del modelo de programaci\'{o}n lineal 
+, es posible afirmar que el sistema log\'{i}stico opera de manera eficiente 
+bajo un esquema de especializaci\'{o}n por ruta. En primer lugar, la \textbf{Planta B} se 
+posiciona como el nodo de mayor volumen de despacho semanal, al enviar un total de 60 miles 
+de litros (equivalente al 40\% del flujo total), cubriendo los centros CD1 y CD3 con costos 
+unitarios de \$9 y \$13 por mil litros respectivamente. Por su parte, la ruta de mayor volumen 
+individual corresponde a \textbf{Planta A $\to$ CD2}, con 45 miles de litros transportados al 
+menor costo unitario de toda la matriz (\$6/mil L); a esto se suma el env\'{i}o complementario 
 de 5 miles de litros desde la misma Planta A hacia CD3, con lo que esta planta agota el 100\% 
-de su capacidad disponible. En cuanto a la \textbf{Planta C}, el modelo la especializa de 
-forma exclusiva en el abastecimiento de CD4, concentrando la totalidad de su producción 
-(40 miles de litros) en esa única ruta, dado que presenta el costo más bajo de toda la tabla 
-hacia ese destino (\$5/mil L); sus costos hacia los demás centros (\$14, \$9 y \$16) son 
-notablemente más elevados, lo que justifica plenamente dicha especialización.\\
+de su capacidad disponible. En cuanto a la \textbf{Planta C}, el modelo la especializa de forma 
+exclusiva en el abastecimiento de CD4, concentrando la totalidad de su producci\'{o}n (40 miles 
+de litros) en esa \'{u}nica ruta, dado que presenta el costo m\'{a}s bajo de toda la tabla hacia 
+ese destino (\$5/mil L); sus costos hacia los dem\'{a}s centros (\$14, \$9 y \$16) son 
+notablemente m\'{a}s elevados, lo que justifica plenamente dicha especializaci\'{o}n.\\
 
-En contraste, las siete rutas que el algoritmo de optimización decidió no activar presentan, 
-en todos los casos, costos unitarios superiores a las alternativas seleccionadas dentro de cada 
-columna de destino. Concretamente, las rutas \textbf{Planta A $\to$ CD1} (\$8) y \textbf{Planta C $\to$ CD1} (\$14) 
-fueron descartadas frente a la opción \textbf{Planta B $\to$ CD1} (\$9), que si bien no es la 
-más barata hacia CD1 de forma aislada, resulta la más conveniente en el contexto global del modelo 
-al liberar a las otras plantas para rutas aún más eficientes. De igual manera, las 
-rutas \textbf{Planta B $\to$ CD2} (\$12) y \textbf{Planta C $\to$ CD2} (\$9) quedaron inactivas 
-dado que la Planta A cubre CD2 al costo mínimo absoluto de la tabla (\$6). Las 
-rutas \textbf{Planta C $\to$ CD3} (\$16), \textbf{Planta A $\to$ CD4} (\$9) 
-y \textbf{Planta B $\to$ CD4} (\$7) también fueron excluidas, siendo esta última particularmente 
-notable: aunque \$7 representa un costo bajo hacia CD4, el modelo prioriza asignar la Planta B a 
-CD1 y CD3, donde su contribución al costo global es más favorable que redirigirla hacia CD4, 
-destino que puede ser cubierto de manera más económica por la Planta C a \$5. Esto demuestra 
-que la optimización no actúa ruta por ruta de forma aislada, sino que evalúa simultáneamente 
-todas las asignaciones para minimizar el costo total del sistema.\\
+En contraste, las siete rutas que el algoritmo de optimizaci\'{o}n decidi\'{o} no activar 
+presentan, en todos los casos, costos unitarios superiores a las alternativas seleccionadas 
+dentro de cada columna de destino. Concretamente, las rutas 
+\textbf{Planta A $\to$ CD1} (\$8) y \textbf{Planta C $\to$ CD1} (\$14) fueron descartadas 
+frente a la opci\'{o}n \textbf{Planta B $\to$ CD1} (\$9), que si bien no es la m\'{a}s barata 
+hacia CD1 de forma aislada, resulta la m\'{a}s conveniente en el contexto global del modelo al 
+liberar a las otras plantas para rutas a\'{u}n m\'{a}s eficientes. De igual manera, las rutas 
+\textbf{Planta B $\to$ CD2} (\$12) y \textbf{Planta C $\to$ CD2} (\$9) quedaron inactivas dado 
+que la Planta A cubre CD2 al costo m\'{i}nimo absoluto de la tabla (\$6). Las rutas 
+\textbf{Planta C $\to$ CD3} (\$16), \textbf{Planta A $\to$ CD4} (\$9) y \textbf{Planta B $\to$ CD4} 
+(\$7) tambi\'{e}n fueron excluidas, siendo esta \'{u}ltima particularmente notable: aunque \$7 
+representa un costo bajo hacia CD4, el modelo prioriza asignar la Planta B a CD1 y CD3, donde 
+su contribuci\'{o}n al costo global es m\'{a}s favorable que redirigirla hacia CD4, destino que 
+puede ser cubierto de manera m\'{a}s econ\'{o}mica por la Planta C a \$5. Esto demuestra que la 
+optimizaci\'{o}n no act\'{u}a ruta por ruta de forma aislada, sino que eval\'{u}a 
+simult\'{a}neamente todas las asignaciones para minimizar el costo total del sistema.\\
 
-Como conclusión integral de esta primera parte, el modelo confirma que es posible abastecer 
+Como conclusi\'{o}n integral de esta primera parte, el modelo confirma que es posible abastecer 
 la totalidad de la demanda semanal (150 miles de litros distribuidos en cuatro centros) a un costo 
-mínimo de \$1\,180 por semana, empleando únicamente 5 de las 12 rutas posibles y operando las tres 
-plantas al 100\% de su capacidad. Este resultado refleja un sistema perfectamente balanceado y sin 
-capacidad ociosa, lo cual, si bien es óptimo en términos de costos, también representa una señal de 
-alerta operativa: ante cualquier incremento en la demanda o falla en alguna planta, el sistema no 
-dispone de margen de holgura productiva para responder sin incurrir en infactibilidad o sobrecostos. 
-El análisis de sensibilidad corrobora esta fragilidad, al demostrar que un incremento de apenas 10 
-miles de litros en la demanda de CD4 es suficiente para que el problema deje de tener solución factible, 
-lo que subraya la necesidad de planificar con anticipación la expansión de capacidad productiva, 
-siendo la \textbf{Planta C} la candidata más lógica por su ventaja de costo hacia el destino de mayor riesgo.
+m\'{i}nimo de \$1\,180 por semana, empleando \'{u}nicamente 5 de las 12 rutas posibles y operando 
+las tres plantas al 100\% de su capacidad. Este resultado refleja un sistema perfectamente balanceado 
+y sin capacidad ociosa, lo cual, si bien es \'{o}ptimo en t\'{e}rminos de costos, tambi\'{e}n 
+representa una se\~{n}al de alerta operativa: ante cualquier incremento en la demanda o falla en 
+alguna planta, el sistema no dispone de margen de holgura productiva para responder sin incurrir 
+en infactibilidad o sobrecostos. El an\'{a}lisis de sensibilidad corrobora esta 
+fragilidad, al demostrar que un incremento de apenas 10 miles de litros en la demanda de CD4 es 
+suficiente para que el problema deje de tener soluci\'{o}n factible, lo que subraya la necesidad 
+de planificar con anticipaci\'{o}n la expansi\'{o}n de capacidad productiva, siendo la 
+\textbf{Planta C} la candidata m\'{a}s l\'{o}gica por su ventaja de costo hacia el destino 
+de mayor riesgo \cite{winston2005}.
 
 \newpage
 
@@ -586,16 +601,16 @@ siendo la \textbf{Planta C} la candidata más lógica por su ventaja de costo ha
 \subsection{Descripci\'{o}n del problema}
 
 La empresa debe ejecutar un proyecto de instalaci\'{o}n de una nueva red de
-distribuci\'{o}n con \textbf{7 actividades}. El proyecto debe durar m\'{a}ximo
-\textbf{40 d\'{i}as h\'{a}biles} (8 semanas).
+distribuci\'{o}n con \textbf{7 actividades}. El proyecto debe durar 
+m\'{a}ximo \textbf{40 d\'{i}as h\'{a}biles} (8 semanas).
 
 \subsection{Tabla de Actividades}
 
-Para la segunda parte del estudio, se presenta a continuación el listado de las siete 
-actividades que componen el proyecto de instalación de la nueva red de distribución, 
-junto con su duración estimada en días hábiles y sus relaciones de precedencia. 
-Esta información constituye la base para la construcción del diagrama de red y el 
-posterior análisis PERT/CPM.
+Para la segunda parte del estudio, se presenta a continuaci\'{o}n el listado de las siete 
+actividades que componen el proyecto de instalaci\'{o}n de la nueva red de distribuci\'{o}n, 
+junto con su duraci\'{o}n estimada en d\'{i}as h\'{a}biles y sus relaciones de precedencia. 
+Esta informaci\'{o}n constituye la base para la construcci\'{o}n del diagrama 
+de red y el posterior an\'{a}lisis PERT/CPM.
 
 \begin{table}[H]
   \centering
@@ -619,15 +634,15 @@ posterior análisis PERT/CPM.
 
 A fin de representar gr\'{a}ficamente las relaciones de precedencia entre las actividades 
 del proyecto y facilitar la identificaci\'{o}n de la ruta cr\'{i}tica, se construye el 
-siguiente diagrama de red bajo la notaci\'{o}n \textbf{AOA} (\textit{Activity On Arrow}). 
-En esta representaci\'{o}n, cada flecha corresponde a una actividad y cada nodo numerado 
-representa un evento o punto de control en el tiempo; adicionalmente, se incorpora una 
-\textbf{actividad ficticia} de duraci\'{o}n cero para modelar correctamente la dependencia 
-de la actividad \textbf{E} respecto a las actividades \textbf{C} y \textbf{D}. Las 
-actividades que conforman la ruta cr\'{i}tica 
+siguiente diagrama de red bajo la notaci\'{o}n \textbf{AOA} (\textit{Activity On Arrow}) 
+\cite{render2012,taha2012}. En esta representaci\'{o}n, cada flecha corresponde a una 
+actividad y cada nodo numerado representa un evento o punto de control en el tiempo; 
+adicionalmente, se incorpora una \textbf{actividad ficticia} de duraci\'{o}n cero para 
+modelar correctamente la dependencia de la actividad \textbf{E} respecto a las actividades 
+\textbf{C} y \textbf{D}. Las actividades que conforman la ruta cr\'{i}tica 
 \textbf{A $\to$ B $\to$ D $\to$ E $\to$ F $\to$ G} determinan el plazo m\'{i}nimo de 
 ejecuci\'{o}n del proyecto y no admiten ning\'{u}n retraso sin comprometer la fecha de 
-conclusi\'{o}n.
+conclusi\'{o}n \cite{hillier2015}.
 
 \begin{figure}[H]
 \centering
@@ -678,7 +693,7 @@ conclusi\'{o}n.
 % Actividad ficticia
 \draw[ficticia] (4) -- node[dur, right]{0} (5);
 
-% Continuación
+% Continuaci\'{o}n
 \draw[flecha] (5) -- node[dur, above right]{E (2)} (6);
 \draw[flecha] (6) -- node[dur, above]{F (3)} (7);
 \draw[flecha] (7) -- node[dur, above]{G (1)} (8);
@@ -699,7 +714,7 @@ conclusi\'{o}n.
 
 El \textbf{tiempo de inicio m\'{a}s temprano} (TE) es el m\'{a}ximo de los tiempos de
 finalizaci\'{o}n m\'{a}s tempranos de sus predecesores. El \textbf{tiempo de finalizaci\'{o}n
-m\'{a}s temprano} (TF) es TE $+$ duraci\'{o}n.
+m\'{a}s temprano} (TF) es TE $+$ duraci\'{o}n \cite{taha2012}.
 
 \begin{equation}
   TE_i = \max_{p \,\in\, \text{pred}(i)} TF_p
@@ -710,7 +725,7 @@ m\'{a}s temprano} (TF) es TE $+$ duraci\'{o}n.
 
 \noindent
 Donde $d_i$ corresponde a la duraci\'{o}n de la actividad $i$ y $\text{pred}(i)$ al 
-conjunto de actividades predecesoras. Para la actividad inicial, $TE = 0$.\\
+conjunto de actividades predecesoras. Para la actividad inicial, $TE = 0$ \cite{render2012}.\\
 
 A partir de la estructura de red definida, se procede al c\'{a}lculo de los tiempos 
 tempranos mediante el recorrido progresivo (\textit{Forward Pass}). Seg\'{u}n las 
@@ -745,9 +760,10 @@ tabla presenta los valores calculados para cada actividad del proyecto.
 
 \subsubsection{C\'{a}lculo de tiempos tard\'{i}os (Backward Pass)}
 
-El \textbf{tiempo de finalizaci\'{o}n m\'{a}s tard\'{i}o} (TFL) de la \'{u}ltima actividad es
-igual a la duraci\'{o}n del proyecto (20). Para las dem\'{a}s, TFL = m\'{i}nimo de los TL de
-sus sucesores. El \textbf{tiempo de inicio m\'{a}s tard\'{i}o} (TL) es TFL $-$ duraci\'{o}n.\\
+El \textbf{tiempo de finalizaci\'{o}n m\'{a}s tard\'{i}o} (TFL) de la \'{u}ltima actividad 
+es igual a la duraci\'{o}n del proyecto (20). Para las dem\'{a}s, TFL = m\'{i}nimo de los 
+TL de sus sucesores. El \textbf{tiempo de inicio m\'{a}s tard\'{i}o} (TL) es TFL $-$ 
+duraci\'{o}n \cite{hillier2015}.\\
 
 \begin{equation}
   TFL_i = \min_{s \,\in\, \text{suc}(i)} TL_s
@@ -758,7 +774,7 @@ sus sucesores. El \textbf{tiempo de inicio m\'{a}s tard\'{i}o} (TL) es TFL $-$ d
 
 \noindent
 Donde $\text{suc}(i)$ representa el conjunto de actividades sucesoras de $i$. 
-Para la actividad final, $TFL = $ duraci\'{o}n total del proyecto.
+Para la actividad final, $TFL = $ duraci\'{o}n total del proyecto \cite{render2012}.
 
 Una vez determinada la duraci\'{o}n total del proyecto (20 d\'{i}as h\'{a}biles), se 
 realiza el recorrido regresivo (\textit{Backward Pass}) aplicando las Ecuaciones~13 
@@ -794,13 +810,13 @@ valores obtenidos para cada actividad, partiendo desde la \'{u}ltima actividad
   H = TL - TE \qquad \text{(actividad cr\'{i}tica si } H = 0\text{)}
 \end{equation}
 
-Con los tiempos tempranos y tardíos ya calculados mediante las ecuaciones 
-anteriores, la siguiente tabla consolida la información completa de cada 
-actividad e incorpora el cálculo de holgura total definido en la Ecuación 14. 
-Una holgura igual a cero indica que la actividad pertenece a la ruta crítica 
-y no admite ningún retraso sin impactar directamente la duración total del 
-proyecto; en contraste, una holgura positiva refleja la flexibilidad disponible 
-para postergar el inicio de dicha actividad sin consecuencias sobre el cronograma.
+Con los tiempos tempranos y tard\'{i}os ya calculados mediante las ecuaciones anteriores 
+\cite{taha2012}, la siguiente tabla consolida la informaci\'{o}n completa de cada actividad 
+e incorpora el c\'{a}lculo de holgura total definido en la Ecuaci\'{o}n~15. Una holgura 
+igual a cero indica que la actividad pertenece a la ruta cr\'{i}tica y no admite ning\'{u}n 
+retraso sin impactar directamente la duraci\'{o}n total del proyecto \cite{render2012}; en 
+contraste, una holgura positiva refleja la flexibilidad disponible para postergar el inicio 
+de dicha actividad sin consecuencias sobre el cronograma.
 
 \begin{table}[H]
   \centering
@@ -841,21 +857,21 @@ para postergar el inicio de dicha actividad sin consecuencias sobre el cronogram
 Longitud: $5 + 3 + 6 + 2 + 3 + 1 = \mathbf{20}$ d\'{i}as h\'{a}biles.
 
 La actividad \textbf{C} (Instalaci\'{o}n CD1) tiene holgura de \textbf{2 d\'{i}as}: puede
-iniciarse hasta el d\'{i}a 10 sin afectar la duraci\'{o}n total del proyecto.
+iniciarse hasta el d\'{i}a 10 sin afectar la duraci\'{o}n total del proyecto \cite{taha2012}.
 \end{cajares}
 
 \subsection{Diagrama de Gantt}
 
 Para complementar el an\'{a}lisis temporal del proyecto y ofrecer una visi\'{o}n integral 
 del cronograma de ejecuci\'{o}n, se presenta a continuaci\'{o}n el diagrama de Gantt 
-correspondiente a las siete actividades planificadas. Este diagrama permite visualizar 
-de forma simult\'{a}nea la secuencia de ejecuci\'{o}n, las duraciones individuales y el 
-paralelismo entre las actividades \textbf{C} y \textbf{D}, que se desarrollan de manera 
+correspondiente a las siete actividades planificadas \cite{render2012}. Este diagrama permite 
+visualizar de forma simult\'{a}nea la secuencia de ejecuci\'{o}n, las duraciones individuales 
+y el paralelismo entre las actividades \textbf{C} y \textbf{D}, que se desarrollan de manera 
 concurrente tras la finalizaci\'{o}n de la actividad \textbf{B}. La representaci\'{o}n 
-distingue visualmente entre las \textbf{actividades cr\'{i}ticas} ---aquellas que no 
-admiten ning\'{u}n retraso sin comprometer la fecha de finalizaci\'{o}n del 
-proyecto--- y la actividad \textbf{C}, que cuenta con una holgura de \textbf{2 d\'{i}as 
-h\'{a}biles}, reflejada mediante una extensi\'{o}n diferenciada en su barra de tiempo.
+distingue visualmente entre las \textbf{actividades cr\'{i}ticas} ---aquellas que no admiten 
+ning\'{u}n retraso sin comprometer la fecha de finalizaci\'{o}n del proyecto--- y la actividad 
+\textbf{C}, que cuenta con una holgura de \textbf{2 d\'{i}as h\'{a}biles}, reflejada mediante 
+una extensi\'{o}n diferenciada en su barra de tiempo.
 
 \begin{figure}[H]
 \centering
@@ -888,9 +904,9 @@ h\'{a}biles}, reflejada mediante una extensi\'{o}n diferenciada en su barra de t
 
 \subsection{An\'{a}lisis de cumplimiento de plazo}
 
-Con base en los resultados obtenidos mediante el an\'{a}lisis PERT/CPM, es posible 
-verificar de manera concluyente el cumplimiento del plazo establecido para el proyecto. 
-La duraci\'{o}n total calculada asciende a \textbf{20 d\'{i}as h\'{a}biles} 
+Con base en los resultados obtenidos mediante el an\'{a}lisis PERT/CPM, 
+es posible verificar de manera concluyente el cumplimiento del plazo establecido para el 
+proyecto. La duraci\'{o}n total calculada asciende a \textbf{20 d\'{i}as h\'{a}biles} 
 ---equivalentes a 4 semanas---, resultado que se obtiene sumando las duraciones de las 
 actividades que conforman la ruta cr\'{i}tica:
 \[
@@ -898,11 +914,11 @@ actividades que conforman la ruta cr\'{i}tica:
 \]
 Este valor cumple ampliamente con el l\'{i}mite m\'{a}ximo de \textbf{40 d\'{i}as 
 h\'{a}biles} (8 semanas) fijado por la empresa, finalizando el proyecto exactamente 
-20 d\'{i}as antes del plazo, lo que representa una \textbf{holgura global del 
-50\,\%} respecto al tiempo disponible. Dicho margen constituye un colch\'{o}n 
-suficiente para absorber imprevistos operativos, retrasos en adquisiciones o 
-contingencias t\'{e}cnicas sin comprometer la fecha de entrega, por lo que 
-\textbf{no se requieren acciones de compresi\'{o}n} (\textit{crashing}).
+20 d\'{i}as antes del plazo, lo que representa una \textbf{holgura global del 50\,\%} 
+respecto al tiempo disponible. Dicho margen constituye un colch\'{o}n suficiente para 
+absorber imprevistos operativos, retrasos en adquisiciones o contingencias t\'{e}cnicas 
+sin comprometer la fecha de entrega, por lo que \textbf{no se requieren acciones de 
+compresi\'{o}n} (\textit{crashing}).
 
 En t\'{e}rminos de flexibilidad interna, la actividad \textbf{C} (Instalaci\'{o}n en 
 CD1) es la \'{u}nica que dispone de holgura propia de \textbf{2 d\'{i}as}, pudiendo 
@@ -952,7 +968,8 @@ compresi\'{o}n.}
 
   \item \textbf{PERT/CPM:} El proyecto de instalaci\'{o}n de red se ejecuta en
   \textbf{20 d\'{i}as h\'{a}biles}, cumpliendo ampliamente con el l\'{i}mite de 40 d\'{i}as.
-  La ruta cr\'{i}tica es A$\to$B$\to$D$\to$E$\to$F$\to$G, con 6 de las 7 actividades siendo cr\'{i}ticas.
+  La ruta cr\'{i}tica es A$\to$B$\to$D$\to$E$\to$F$\to$G, con 6 de las 
+  7 actividades siendo cr\'{i}ticas.
 
   \item \textbf{Riesgo operativo:} El 85\,\% de las actividades son cr\'{i}ticas,
   por lo que casi cualquier retraso individual afecta la fecha de conclusi\'{o}n.
@@ -960,25 +977,26 @@ compresi\'{o}n.}
 
   \item\noindent\textbf{Eficiencia de la soluci\'{o}n:} El modelo de transporte activ\'{o} 
   \'{u}nicamente el \textbf{41.7\,\%} de las rutas disponibles (5 de 12), lo que refleja 
-  una soluci\'{o}n altamente concentrada y especializada. Esto, si bien minimiza costos, 
-  genera \textbf{dependencia estructural} en rutas clave como \textbf{Planta A $\to$ CD2} 
-  y \textbf{Planta C $\to$ CD4}, cuya interrupci\'{o}n afectar\'{i}a directamente el 
-  cumplimiento de la demanda sin alternativas inmediatas de bajo costo.
+  una soluci\'{o}n altamente concentrada y especializada. Esto, si bien 
+  minimiza costos, genera \textbf{dependencia estructural} en rutas clave como 
+  \textbf{Planta A $\to$ CD2} y \textbf{Planta C $\to$ CD4}, cuya interrupci\'{o}n 
+  afectar\'{i}a directamente el cumplimiento de la demanda sin alternativas inmediatas 
+  de bajo costo.
 \end{enumerate}
 
 \subsection{Respuesta: \textquestiondown se puede ejecutar el proyecto en 8 semanas?}
 
 \textbf{S\'{i}.} La duraci\'{o}n calculada es de \textbf{20 d\'{i}as h\'{a}biles (4 semanas)},
-que representa exactamente la mitad del plazo m\'{a}ximo permitido de 40 d\'{i}as (8 semanas).
-El proyecto cuenta con 20 d\'{i}as de holgura global, margen suficiente para gestionar
-riesgos sin comprometer el plazo.
+que representa exactamente la mitad del plazo m\'{a}ximo permitido de 40 d\'{i}as (8 semanas) 
+\cite{render2012}. El proyecto cuenta con 20 d\'{i}as de holgura global, margen suficiente 
+para gestionar riesgos sin comprometer el plazo.
 
 \subsection{Recomendaciones operativas}
 
 \begin{enumerate}
   \item \textbf{Distribuci\'{o}n:} Mantener la ruta Planta A $\to$ CD2 como prioritaria
-  dado su costo m\'{i}nimo (\$6). Si la demanda de CD4 crece, ampliar capacidad en la
-  Planta C antes de redirigir flujos de otras plantas.
+  dado su costo m\'{i}nimo (\$6). Si la demanda de CD4 crece, ampliar 
+  capacidad en la Planta C antes de redirigir flujos de otras plantas.
 
   \item \textbf{Gesti\'{o}n del proyecto:} Monitorear prioritariamente la actividad
   \textbf{D} (Instalaci\'{o}n CD2, 6 d\'{i}as), la m\'{a}s larga de la ruta cr\'{i}tica y,
@@ -1002,18 +1020,17 @@ riesgos sin comprometer el plazo.
 \subsection{Limitaciones del estudio}
 
 \begin{itemize}
-  \item El modelo de transporte asume costos fijos y capacidades determinísticas.
+  \item El modelo de transporte asume costos fijos y capacidades determin\'{i}sticas.
   En la pr\'{a}ctica, los costos pueden variar por condiciones viales o estacionalidad.
-  \item El an\'{a}lisis PERT/CPM usa duraciones determinísticas (CPM). Una extensi\'{o}n
+  \item El an\'{a}lisis PERT/CPM usa duraciones determin\'{i}sticas (CPM). Una extensi\'{o}n
   con distribuciones probabil\'{i}sticas (estimaciones optimista/m\'{a}s probable/pesimista)
   dar\'{i}a una estimaci\'{o}n de riesgo m\'{a}s robusta.
   \item No se consideraron costos de inventario ni restricciones de frecuencia de entrega.
-  \item El modelo de transporte 
-  considera una sola planta como fuente exclusiva para ciertos destinos (como 
-  \textbf{Planta C} para \textbf{CD4}), lo que introduce fragilidad ante interrupciones 
-  productivas. Un modelo de \textbf{optimizaci\'{o}n robusta} o \textbf{multiescenario} 
-  permitir\'{i}a evaluar soluciones alternativas con mayor resiliencia ante 
-  perturbaciones.
+  \item El modelo de transporte considera una sola planta como fuente exclusiva para ciertos 
+  destinos (como \textbf{Planta C} para \textbf{CD4}), lo que introduce fragilidad ante 
+  interrupciones productivas. Un modelo de \textbf{optimizaci\'{o}n 
+  robusta} o \textbf{multiescenario} permitir\'{i}a evaluar soluciones alternativas con 
+  mayor resiliencia ante perturbaciones.
 \end{itemize}
 
 \newpage
@@ -1181,7 +1198,6 @@ edges <- data.frame(
 net <- graph_from_data_frame(d = edges, directed = TRUE)
 
 # 3. Definir coordenadas manuales para un disenio limpio AOA
-# Esto asegura que el diagrama no se deforme (1 es inicio, 8 es fin)
 coords <- matrix(c(
   0, 0,   # Nodo 1
   1, 0,   # Nodo 2
@@ -1275,10 +1291,12 @@ Holgura del proyecto: 20 dias
 
 \begin{figure}[H]
     \centering
-    % width=1.0\textwidth permite que ocupe todo el ancho disponible
-    % trim lo usamos si la imagen tiene bordes blancos vacíos que la hacen ver pequeña
     \includegraphics[width=1.0\textwidth, keepaspectratio]{images/AOA} 
-    \caption{Diagrama de red AOA resultante del análisis en R.}
+    \caption{Diagrama de red AOA resultante del an\'{a}lisis en R.}
     \label{fig:anexo_aoa}
 \end{figure}
+
+\newpage
+\printbibliography[title={Referencias}]
+
 \end{document}
