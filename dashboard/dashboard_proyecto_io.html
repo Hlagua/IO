@@ -1,0 +1,803 @@
+
+<style>
+
+/* ====== ESTILO MEJORADO ====== */
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Inter,var(--font-sans),sans-serif;
+  background:linear-gradient(180deg,#F7F9FC 0%,#EEF3F8 100%);
+  color:var(--color-text-primary);
+  padding:1.2rem;
+}
+
+/* NAV */
+.nav{
+  display:flex;
+  gap:.5rem;
+  border-bottom:none;
+  margin-bottom:1.8rem;
+  background:#fff;
+  padding:.5rem;
+  border-radius:18px;
+  box-shadow:0 4px 18px rgba(0,0,0,.05);
+}
+
+.nav-btn{
+  padding:12px 26px;
+  font-size:14px;
+  font-weight:600;
+  background:none;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  color:var(--color-text-secondary);
+  transition:all .25s ease;
+}
+
+.nav-btn:hover{
+  background:#EEF5FC;
+  color:#185FA5;
+}
+
+.nav-btn.active{
+  background:linear-gradient(135deg,#185FA5,#378ADD);
+  color:#fff;
+  box-shadow:0 6px 14px rgba(24,95,165,.25);
+}
+
+/* PAGES */
+.page{
+  display:none;
+  animation:fade .3s ease;
+}
+
+.page.active{
+  display:block;
+}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(8px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* KPI */
+.kpi-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin-bottom:1.6rem;
+}
+
+.kpi{
+  background:rgba(255,255,255,.9);
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.3);
+  border-radius:20px;
+  padding:18px;
+  box-shadow:0 8px 24px rgba(0,0,0,.06);
+  transition:all .25s ease;
+}
+
+.kpi:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 28px rgba(0,0,0,.08);
+}
+
+.kpi-label{
+  font-size:12px;
+  color:#6B7280;
+  margin-bottom:8px;
+  letter-spacing:.03em;
+}
+
+.kpi-value{
+  font-size:28px;
+  font-weight:700;
+  color:#111827;
+}
+
+.kpi-sub{
+  font-size:11px;
+  color:#9CA3AF;
+  margin-top:5px;
+}
+
+/* CARDS */
+.card{
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.4);
+  border-radius:24px;
+  padding:1.3rem 1.5rem;
+  margin-bottom:1.2rem;
+  box-shadow:0 8px 28px rgba(15,23,42,.06);
+  transition:all .25s ease;
+}
+
+.card:hover{
+  box-shadow:0 12px 34px rgba(15,23,42,.08);
+}
+
+.card-title{
+  font-size:15px;
+  font-weight:700;
+  color:#111827;
+  margin-bottom:1rem;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+/* GRID */
+.two-col{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1rem;
+}
+
+.three-col{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:1rem;
+}
+
+/* TABLES */
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13px;
+  overflow:hidden;
+  border-radius:14px;
+}
+
+th{
+  text-align:left;
+  padding:10px 12px;
+  font-size:11px;
+  font-weight:700;
+  color:#6B7280;
+  background:#F8FAFC;
+  border-bottom:1px solid #E5E7EB;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+}
+
+td{
+  padding:10px 12px;
+  border-bottom:1px solid #EEF2F7;
+  color:#1F2937;
+  transition:background .2s ease;
+}
+
+tbody tr:hover td{
+  background:#F8FBFF;
+}
+
+tr:last-child td{
+  border-bottom:none;
+}
+
+/* BADGES */
+.badge{
+  display:inline-block;
+  padding:4px 10px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.02em;
+}
+
+.badge-green{
+  background:#EAF3DE;
+  color:#27500A;
+}
+
+.badge-red{
+  background:#FCEBEB;
+  color:#A61B1B;
+}
+
+.badge-blue{
+  background:#E6F1FB;
+  color:#0C447C;
+}
+
+.badge-gray{
+  background:#F1EFE8;
+  color:#444441;
+}
+
+.badge-amber{
+  background:#FAEEDA;
+  color:#633806;
+}
+
+/* SVG */
+svg text{
+  font-family:Inter,sans-serif;
+}
+
+/* BANNERS */
+.infactible-banner,
+.factible-banner{
+  border-radius:16px;
+  padding:12px 16px;
+  font-size:13px;
+  font-weight:500;
+  margin-top:.8rem;
+  box-shadow:0 3px 10px rgba(0,0,0,.04);
+}
+
+.infactible-banner{
+  background:#FFF1F1;
+  border:1px solid #F09595;
+  color:#791F1F;
+}
+
+.factible-banner{
+  background:#F1F9E8;
+  border:1px solid #C0DD97;
+  color:#27500A;
+}
+
+/* CONTROLS */
+.sim-control{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:1rem;
+}
+
+.sim-control label{
+  font-size:13px;
+  font-weight:600;
+  color:#4B5563;
+  min-width:160px;
+}
+
+.sim-control input[type=range]{
+  flex:1;
+  accent-color:#185FA5;
+  cursor:pointer;
+}
+
+.sim-control span{
+  font-size:13px;
+  font-weight:700;
+  min-width:60px;
+  text-align:right;
+  color:#185FA5;
+}
+
+/* LEGEND */
+.legend{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  margin-bottom:1rem;
+  font-size:12px;
+  color:#6B7280;
+}
+
+.leg-dot{
+  width:12px;
+  height:12px;
+  border-radius:4px;
+  display:inline-block;
+  margin-right:5px;
+  vertical-align:middle;
+}
+
+/* GANTT */
+.gantt-wrap{
+  overflow-x:auto;
+  padding-bottom:6px;
+}
+
+.gantt-table{
+  min-width:650px;
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px;
+}
+
+.gantt-table td,
+.gantt-table th{
+  padding:6px;
+  border-bottom:1px solid #EEF2F7;
+}
+
+.gantt-bar-cell{
+  position:relative;
+  height:30px;
+  vertical-align:middle;
+}
+
+.g-bar{
+  position:absolute;
+  top:4px;
+  height:20px;
+  border-radius:8px;
+  box-shadow:0 2px 8px rgba(0,0,0,.12);
+}
+
+.critica{
+  background:linear-gradient(135deg,#E24B4A,#C53030);
+}
+
+.holgura{
+  background:linear-gradient(135deg,#378ADD,#185FA5);
+}
+
+.holgura-ghost{
+  background:rgba(55,138,221,.18);
+  border:1px dashed #378ADD;
+}
+
+/* PERT */
+.pert-table th,
+.pert-table td{
+  font-size:12px;
+  padding:9px 11px;
+}
+
+.pert-table .crit-row td{
+  background:#FFF5F5;
+}
+
+.pert-table .holg-row td{
+  background:#FFF9EC;
+}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .kpi-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .two-col,
+  .three-col{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:700px){
+  body{
+    padding:.8rem;
+  }
+
+  .kpi-grid{
+    grid-template-columns:1fr;
+  }
+
+  .nav{
+    flex-direction:column;
+  }
+
+  .nav-btn{
+    width:100%;
+    text-align:center;
+  }
+
+  .sim-control{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .sim-control label{
+    min-width:auto;
+  }
+}
+
+</style>
+
+<h2 class="sr-only">Dashboard de resultados: Optimización de Distribución y PERT/CPM — Planta Embotelladora de Agua Purificada</h2>
+
+<nav class="nav">
+  <button class="nav-btn active" onclick="showPage('p1',this)"><i class="ti ti-truck" aria-hidden="true"></i> Modelo de transporte</button>
+  <button class="nav-btn" onclick="showPage('p2',this)"><i class="ti ti-calendar-time" aria-hidden="true"></i> Gestión del proyecto (PERT/CPM)</button>
+</nav>
+
+<!-- ═══════════════ PÁGINA 1: TRANSPORTE ═══════════════ -->
+<div id="p1" class="page active">
+
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-label">Costo mínimo</div>
+      <div class="kpi-value" id="kpi-costo">$1 180</div>
+      <div class="kpi-sub">por semana</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Rutas activas</div>
+      <div class="kpi-value">5 / 12</div>
+      <div class="kpi-sub">41.7% utilizadas</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Volumen total</div>
+      <div class="kpi-value">150 mil L</div>
+      <div class="kpi-sub">Sistema balanceado</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Utilización plantas</div>
+      <div class="kpi-value">100%</div>
+      <div class="kpi-sub">sin capacidad ociosa</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">Matriz de envíos óptimos (miles de litros)</div>
+      <table>
+        <thead><tr><th>Planta \ CD</th><th>CD1</th><th>CD2</th><th>CD3</th><th>CD4</th><th>Total</th></tr></thead>
+        <tbody>
+          <tr><td><b>Planta A</b></td><td>0</td><td style="background:#EAF3DE;font-weight:500;color:#27500A;">45</td><td style="background:#EAF3DE;font-weight:500;color:#27500A;">5</td><td>0</td><td>50</td></tr>
+          <tr><td><b>Planta B</b></td><td style="background:#EAF3DE;font-weight:500;color:#27500A;">30</td><td>0</td><td style="background:#EAF3DE;font-weight:500;color:#27500A;">30</td><td>0</td><td>60</td></tr>
+          <tr><td><b>Planta C</b></td><td>0</td><td>0</td><td>0</td><td style="background:#EAF3DE;font-weight:500;color:#27500A;">40</td><td>40</td></tr>
+          <tr style="background:var(--color-background-secondary);"><td><b>Demanda</b></td><td><b>30</b></td><td><b>45</b></td><td><b>35</b></td><td><b>40</b></td><td><b>150</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">Desglose de costos por ruta activa</div>
+      <table>
+        <thead><tr><th>Ruta</th><th>Cant.</th><th>$/mil L</th><th>Total</th></tr></thead>
+        <tbody>
+          <tr><td>Planta A → CD2</td><td>45</td><td>$6</td><td style="font-weight:500;">$270</td></tr>
+          <tr><td>Planta A → CD3</td><td>5</td><td>$10</td><td style="font-weight:500;">$50</td></tr>
+          <tr><td>Planta B → CD1</td><td>30</td><td>$9</td><td style="font-weight:500;">$270</td></tr>
+          <tr><td>Planta B → CD3</td><td>30</td><td>$13</td><td style="font-weight:500;">$390</td></tr>
+          <tr><td>Planta C → CD4</td><td>40</td><td>$5</td><td style="font-weight:500;">$200</td></tr>
+          <tr style="background:var(--color-background-secondary);"><td><b>Total</b></td><td><b>150</b></td><td>—</td><td style="font-weight:500;color:#185FA5;"><b>$1 180</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Diagrama de flujo de distribución</div>
+    <div class="flow-wrap">
+      <svg viewBox="0 0 700 220" width="100%" class="node-svg">
+        <defs>
+          <marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#185FA5"/>
+          </marker>
+        </defs>
+        <!-- Plantas -->
+        <rect x="10" y="30" width="110" height="38" rx="6" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
+        <text x="65" y="46" text-anchor="middle" font-size="12" font-weight="500" fill="#0C447C">Planta A</text>
+        <text x="65" y="61" text-anchor="middle" font-size="10" fill="#185FA5">cap: 50</text>
+
+        <rect x="10" y="90" width="110" height="38" rx="6" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
+        <text x="65" y="106" text-anchor="middle" font-size="12" font-weight="500" fill="#0C447C">Planta B</text>
+        <text x="65" y="121" text-anchor="middle" font-size="10" fill="#185FA5">cap: 60</text>
+
+        <rect x="10" y="150" width="110" height="38" rx="6" fill="#E6F1FB" stroke="#378ADD" stroke-width="1"/>
+        <text x="65" y="166" text-anchor="middle" font-size="12" font-weight="500" fill="#0C447C">Planta C</text>
+        <text x="65" y="181" text-anchor="middle" font-size="10" fill="#185FA5">cap: 40</text>
+
+        <!-- CDs -->
+        <rect x="570" y="10" width="110" height="38" rx="6" fill="#EAF3DE" stroke="#639922" stroke-width="1"/>
+        <text x="625" y="26" text-anchor="middle" font-size="12" font-weight="500" fill="#27500A">CD1</text>
+        <text x="625" y="41" text-anchor="middle" font-size="10" fill="#3B6D11">dem: 30</text>
+
+        <rect x="570" y="70" width="110" height="38" rx="6" fill="#EAF3DE" stroke="#639922" stroke-width="1"/>
+        <text x="625" y="86" text-anchor="middle" font-size="12" font-weight="500" fill="#27500A">CD2</text>
+        <text x="625" y="101" text-anchor="middle" font-size="10" fill="#3B6D11">dem: 45</text>
+
+        <rect x="570" y="130" width="110" height="38" rx="6" fill="#EAF3DE" stroke="#639922" stroke-width="1"/>
+        <text x="625" y="146" text-anchor="middle" font-size="12" font-weight="500" fill="#27500A">CD3</text>
+        <text x="625" y="161" text-anchor="middle" font-size="10" fill="#3B6D11">dem: 35</text>
+
+        <rect x="570" y="175" width="110" height="38" rx="6" fill="#EAF3DE" stroke="#639922" stroke-width="1"/>
+        <text x="625" y="191" text-anchor="middle" font-size="12" font-weight="500" fill="#27500A">CD4</text>
+        <text x="625" y="206" text-anchor="middle" font-size="10" fill="#3B6D11">dem: 40</text>
+
+        <!-- Flechas A→CD2 -->
+        <line x1="120" y1="49" x2="568" y2="89" stroke="#185FA5" stroke-width="2.5" marker-end="url(#ar)" opacity=".85"/>
+        <text x="350" y="62" text-anchor="middle" font-size="10" fill="#185FA5" font-weight="500">45 mil L · $270</text>
+
+        <!-- A→CD3 -->
+        <line x1="120" y1="52" x2="568" y2="145" stroke="#185FA5" stroke-width="1.5" marker-end="url(#ar)" opacity=".7"/>
+        <text x="350" y="108" text-anchor="middle" font-size="10" fill="#185FA5">5 mil L · $50</text>
+
+        <!-- B→CD1 -->
+        <line x1="120" y1="106" x2="568" y2="29" stroke="#185FA5" stroke-width="2" marker-end="url(#ar)" opacity=".75"/>
+        <text x="250" y="56" text-anchor="middle" font-size="10" fill="#185FA5">30 mil L · $270</text>
+
+        <!-- B→CD3 -->
+        <line x1="120" y1="115" x2="568" y2="148" stroke="#185FA5" stroke-width="2" marker-end="url(#ar)" opacity=".75"/>
+        <text x="345" y="138" text-anchor="middle" font-size="10" fill="#185FA5">30 mil L · $390</text>
+
+        <!-- C→CD4 -->
+        <line x1="120" y1="169" x2="568" y2="194" stroke="#185FA5" stroke-width="2.5" marker-end="url(#ar)" opacity=".85"/>
+        <text x="345" y="185" text-anchor="middle" font-size="10" fill="#185FA5" font-weight="500">40 mil L · $200</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ANÁLISIS DE SENSIBILIDAD INTERACTIVO -->
+  <div class="card">
+    <div class="card-title"><i class="ti ti-adjustments-horizontal" aria-hidden="true"></i> Análisis de sensibilidad — demanda CD4</div>
+    <div class="sim-control">
+      <label>Demanda CD4 (mil L)</label>
+      <input type="range" min="30" max="70" step="1" value="40" id="cd4-slider" oninput="updateSensibilidad(this.value)"/>
+      <span id="cd4-val">40</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+      <div class="kpi">
+        <div class="kpi-label">Demanda total</div>
+        <div class="kpi-value" id="s-dem">150</div>
+        <div class="kpi-sub">miles de litros</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Capacidad total</div>
+        <div class="kpi-value">150</div>
+        <div class="kpi-sub">fija</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Estado</div>
+        <div class="kpi-value" id="s-estado" style="font-size:16px;color:#27500A;">Factible</div>
+        <div class="kpi-sub" id="s-gap">balance: 0</div>
+      </div>
+    </div>
+    <div class="factible-banner" id="fact-ok">Sistema factible: el costo mínimo puede calcularse. La oferta cubre la demanda.</div>
+    <div class="infactible-banner" id="fact-no">Sistema infactible: la capacidad total (150) no alcanza la demanda total. Se necesitan <span id="faltan">0</span> miles de litros adicionales de capacidad.</div>
+  </div>
+
+</div>
+
+<!-- ═══════════════ PÁGINA 2: PERT/CPM ═══════════════ -->
+<div id="p2" class="page">
+
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-label">Duración total</div>
+      <div class="kpi-value">20 días</div>
+      <div class="kpi-sub">4 semanas hábiles</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Límite permitido</div>
+      <div class="kpi-value">40 días</div>
+      <div class="kpi-sub">8 semanas</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Holgura global</div>
+      <div class="kpi-value" style="color:#27500A;">20 días</div>
+      <div class="kpi-sub">50% del plazo libre</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Act. críticas</div>
+      <div class="kpi-value">6 / 7</div>
+      <div class="kpi-sub">86% del proyecto</div>
+    </div>
+  </div>
+
+  <!-- DIAGRAMA DE RED -->
+  <div class="card">
+    <div class="card-title">Diagrama de red AOA</div>
+    <div class="legend">
+      <span><span class="leg-dot" style="background:#E24B4A;"></span>Actividad crítica</span>
+      <span><span class="leg-dot" style="background:#378ADD;"></span>Actividad con holgura</span>
+      <span><span class="leg-dot" style="background:#888780;border:1px dashed #888780;"></span>Actividad ficticia</span>
+    </div>
+    <svg viewBox="0 0 680 170" width="100%" style="overflow:visible;">
+      <defs>
+        <marker id="arc" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#E24B4A"/></marker>
+        <marker id="arn" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#378ADD"/></marker>
+        <marker id="arf" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#888780"/></marker>
+      </defs>
+      <!-- Arcos críticos -->
+      <line x1="35" y1="100" x2="115" y2="100" stroke="#E24B4A" stroke-width="2.5" marker-end="url(#arc)"/>
+      <text x="75" y="93" text-anchor="middle" font-size="10" font-weight="500" fill="#E24B4A">A (5)</text>
+      <line x1="145" y1="100" x2="225" y2="100" stroke="#E24B4A" stroke-width="2.5" marker-end="url(#arc)"/>
+      <text x="185" y="93" text-anchor="middle" font-size="10" font-weight="500" fill="#E24B4A">B (3)</text>
+      <!-- D (crítico, rama baja) -->
+      <line x1="248" y1="114" x2="358" y2="140" stroke="#E24B4A" stroke-width="2.5" marker-end="url(#arc)"/>
+      <text x="295" y="142" text-anchor="middle" font-size="10" font-weight="500" fill="#E24B4A">D (6)</text>
+      <!-- Ficticia -->
+      <line x1="354" y1="42" x2="358" y2="105" stroke="#888780" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arf)"/>
+      <text x="350" y="89" text-anchor="middle" font-size="10" fill="#888780">0</text>
+      <!-- E,F,G críticos -->
+      <line x1="388" y1="120" x2="448" y2="100" stroke="#E24B4A" stroke-width="2.5" marker-end="url(#arc)"/>
+      <text x="415" y="102" text-anchor="middle" font-size="10" font-weight="500" fill="#E24B4A">E (2)</text>
+      <line x1="478" y1="100" x2="558" y2="100" stroke="#E24B4A" stroke-width="2.5" marker-end="url(#arc)"/>
+      <text x="518" y="93" text-anchor="middle" font-size="10" font-weight="500" fill="#E24B4A">F (3)</text>
+      <line x1="588" y1="100" x2="648" y2="100" stroke="#E24B4A" stroke-width="2.5" marker-end="url(#arc)"/>
+      <text x="618" y="93" text-anchor="middle" font-size="10" font-weight="500" fill="#E24B4A">G (1)</text>
+      <!-- C no crítico -->
+      <line x1="248" y1="86" x2="348" y2="42" stroke="#378ADD" stroke-width="2" marker-end="url(#arn)"/>
+      <text x="290" y="52" text-anchor="middle" font-size="10" font-weight="500" fill="#378ADD">C (4)</text>
+
+
+      <!-- Nodos -->
+      <circle cx="30" cy="100" r="14" fill="#FCEBEB" stroke="#E24B4A" stroke-width="1.5"/><text x="30" y="105" text-anchor="middle" font-size="11" font-weight="500" fill="#791F1F">1</text>
+      <circle cx="130" cy="100" r="14" fill="#FCEBEB" stroke="#E24B4A" stroke-width="1.5"/><text x="130" y="105" text-anchor="middle" font-size="11" font-weight="500" fill="#791F1F">2</text>
+      <circle cx="235" cy="100" r="14" fill="#FCEBEB" stroke="#E24B4A" stroke-width="1.5"/><text x="235" y="105" text-anchor="middle" font-size="11" font-weight="500" fill="#791F1F">3</text>
+      <circle cx="362" cy="40" r="14" fill="#E6F1FB" stroke="#378ADD" stroke-width="1.5"/><text x="362" y="45" text-anchor="middle" font-size="11" font-weight="500" fill="#0C447C">4</text>
+      <circle cx="372" cy="128" r="14" fill="#FCEBEB" stroke="#E24B4A" stroke-width="1.5"/><text x="372" y="133" text-anchor="middle" font-size="11" font-weight="500" fill="#791F1F">5</text>
+      <circle cx="462" cy="100" r="14" fill="#FCEBEB" stroke="#E24B4A" stroke-width="1.5"/><text x="462" y="105" text-anchor="middle" font-size="11" font-weight="500" fill="#791F1F">6</text>
+      <circle cx="572" cy="100" r="14" fill="#FCEBEB" stroke="#E24B4A" stroke-width="1.5"/><text x="572" y="105" text-anchor="middle" font-size="11" font-weight="500" fill="#791F1F">7</text>
+      <circle cx="655" cy="100" r="14" fill="#FCEBEB" stroke="#E24B4A" stroke-width="1.5"/><text x="655" y="105" text-anchor="middle" font-size="11" font-weight="500" fill="#791F1F">8</text>
+    </svg>
+    <div style="margin-top:.5rem;font-size:12px;color:var(--color-text-secondary);">Ruta crítica: <b style="color:#E24B4A;">A → B → D → E → F → G</b> = 5+3+6+2+3+1 = 20 días</div>
+  </div>
+
+  <!-- TABLA PERT/CPM -->
+  <div class="card">
+    <div class="card-title">Tabla PERT/CPM completa</div>
+    <div class="legend">
+      <span><span class="leg-dot" style="background:#FCEBEB;border:1px solid #F09595;"></span>Actividad crítica (holgura = 0)</span>
+      <span><span class="leg-dot" style="background:#FAEEDA;border:1px solid #FAC775;"></span>Actividad con holgura</span>
+    </div>
+    <table class="pert-table">
+      <thead><tr><th>Act.</th><th>Descripción</th><th>Dur.</th><th>TE</th><th>TF</th><th>TL</th><th>TFL</th><th>Holgura</th><th>Crítica</th></tr></thead>
+      <tbody>
+        <tr class="crit-row"><td><b>A</b></td><td>Diseño de ruta</td><td>5</td><td>0</td><td>5</td><td>0</td><td>5</td><td><b>0</b></td><td><span class="badge badge-red">SÍ</span></td></tr>
+        <tr class="crit-row"><td><b>B</b></td><td>Compra de válvulas</td><td>3</td><td>5</td><td>8</td><td>5</td><td>8</td><td><b>0</b></td><td><span class="badge badge-red">SÍ</span></td></tr>
+        <tr class="holg-row"><td><b>C</b></td><td>Instalación en CD1</td><td>4</td><td>8</td><td>12</td><td>10</td><td>14</td><td><b>2</b></td><td><span class="badge badge-blue">NO</span></td></tr>
+        <tr class="crit-row"><td><b>D</b></td><td>Instalación en CD2</td><td>6</td><td>8</td><td>14</td><td>8</td><td>14</td><td><b>0</b></td><td><span class="badge badge-red">SÍ</span></td></tr>
+        <tr class="crit-row"><td><b>E</b></td><td>Pruebas de flujo</td><td>2</td><td>14</td><td>16</td><td>14</td><td>16</td><td><b>0</b></td><td><span class="badge badge-red">SÍ</span></td></tr>
+        <tr class="crit-row"><td><b>F</b></td><td>Capacitación</td><td>3</td><td>16</td><td>19</td><td>16</td><td>19</td><td><b>0</b></td><td><span class="badge badge-red">SÍ</span></td></tr>
+        <tr class="crit-row"><td><b>G</b></td><td>Inicio de operación</td><td>1</td><td>19</td><td>20</td><td>19</td><td>20</td><td><b>0</b></td><td><span class="badge badge-red">SÍ</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- GANTT -->
+  <div class="card">
+    <div class="card-title">Diagrama de Gantt</div>
+    <div class="legend">
+      <span><span class="leg-dot" style="background:#E24B4A;"></span>Actividad crítica</span>
+      <span><span class="leg-dot" style="background:#378ADD;"></span>Actividad C (holgura 2 d)</span>
+      <span><span class="leg-dot" style="background:rgba(55,138,221,.25);border:1px dashed #378ADD;"></span>Holgura disponible</span>
+    </div>
+    <div class="gantt-wrap">
+      <table class="gantt-table" id="gantt-tbl">
+        <thead>
+          <tr>
+            <th style="width:180px;">Actividad</th>
+            <th colspan="21" style="text-align:left;padding-left:4px;">Días hábiles (0 – 20)</th>
+          </tr>
+        </thead>
+        <tbody id="gantt-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- VERIFICACIÓN DE PLAZO INTERACTIVA -->
+  <div class="card">
+    <div class="card-title"><i class="ti ti-adjustments-horizontal" aria-hidden="true"></i> Verificación de plazo</div>
+    <div class="sim-control">
+      <label>Duración simulada (días)</label>
+      <input type="range" min="10" max="45" step="1" value="20" id="dur-slider" oninput="updatePlazo(this.value)"/>
+      <span id="dur-val">20</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+      <div class="kpi">
+        <div class="kpi-label">Duración</div>
+        <div class="kpi-value" id="p-dur">20 días</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Holgura vs 40 d</div>
+        <div class="kpi-value" id="p-hol" style="color:#27500A;">20 días</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Estado</div>
+        <div class="kpi-value" id="p-est" style="font-size:16px;color:#27500A;">Cumple</div>
+      </div>
+    </div>
+    <div id="plazo-ok" class="factible-banner" style="margin-top:.75rem;">El proyecto termina antes del plazo. No se requieren acciones de compresión (crashing).</div>
+    <div id="plazo-no" class="infactible-banner" style="margin-top:.75rem;display:none;">El proyecto excede el límite de 40 días. Se recomienda aplicar crashing en la actividad D (mayor duración en ruta crítica).</div>
+  </div>
+
+</div>
+
+<script>
+function showPage(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function updateSensibilidad(v){
+  v=parseInt(v);
+  document.getElementById('cd4-val').textContent=v;
+  var dem=110+v;
+  document.getElementById('s-dem').textContent=dem;
+  var gap=150-dem;
+  if(gap>=0){
+    document.getElementById('s-estado').textContent='Factible';
+    document.getElementById('s-estado').style.color='#27500A';
+    document.getElementById('s-gap').textContent='balance: '+gap;
+    document.getElementById('fact-ok').style.display='block';
+    document.getElementById('fact-no').style.display='none';
+  } else {
+    document.getElementById('s-estado').textContent='Infactible';
+    document.getElementById('s-estado').style.color='#791F1F';
+    document.getElementById('s-gap').textContent='déficit: '+Math.abs(gap);
+    document.getElementById('fact-ok').style.display='none';
+    document.getElementById('fact-no').style.display='block';
+    document.getElementById('faltan').textContent=Math.abs(gap);
+  }
+}
+
+function updatePlazo(v){
+  v=parseInt(v);
+  document.getElementById('dur-val').textContent=v;
+  document.getElementById('p-dur').textContent=v+' días';
+  var h=40-v;
+  document.getElementById('p-hol').textContent=(h>=0?h:0)+' días';
+  document.getElementById('p-hol').style.color=h>=0?'#27500A':'#791F1F';
+  if(h>=0){
+    document.getElementById('p-est').textContent='Cumple';
+    document.getElementById('p-est').style.color='#27500A';
+    document.getElementById('plazo-ok').style.display='block';
+    document.getElementById('plazo-no').style.display='none';
+  } else {
+    document.getElementById('p-est').textContent='Excede';
+    document.getElementById('p-est').style.color='#791F1F';
+    document.getElementById('plazo-ok').style.display='none';
+    document.getElementById('plazo-no').style.display='block';
+  }
+}
+
+var acts=[
+  {id:'A',desc:'A – Diseño ruta (crít.)',te:0,dur:5,critica:true,holgura:0},
+  {id:'B',desc:'B – Compra válvulas (crít.)',te:5,dur:3,critica:true,holgura:0},
+  {id:'C',desc:'C – Inst. CD1 (holgura 2 d)',te:8,dur:4,critica:false,holgura:2},
+  {id:'D',desc:'D – Inst. CD2 (crít.)',te:8,dur:6,critica:true,holgura:0},
+  {id:'E',desc:'E – Pruebas flujo (crít.)',te:14,dur:2,critica:true,holgura:0},
+  {id:'F',desc:'F – Capacitación (crít.)',te:16,dur:3,critica:true,holgura:0},
+  {id:'G',desc:'G – Inicio operación (crít.)',te:19,dur:1,critica:true,holgura:0}
+];
+var total=20;
+var cellW=28;
+
+function buildGantt(){
+  var tb=document.getElementById('gantt-body');
+  tb.innerHTML='';
+  acts.forEach(function(a){
+    var tr=document.createElement('tr');
+    var tdLabel=document.createElement('td');
+    tdLabel.textContent=a.desc;
+    tdLabel.style.fontSize='12px';
+    tdLabel.style.whiteSpace='nowrap';
+    tr.appendChild(tdLabel);
+    var tdBar=document.createElement('td');
+    tdBar.colSpan=total;
+    tdBar.style.padding='4px 0';
+    var wrapper=document.createElement('div');
+    wrapper.style.position='relative';
+    wrapper.style.width=(total*cellW)+'px';
+    wrapper.style.height='28px';
+    for(var d=0;d<total;d++){
+      var tick=document.createElement('div');
+      tick.style.cssText='position:absolute;top:0;left:'+(d*cellW)+'px;width:'+cellW+'px;height:100%;border-right:0.5px solid var(--color-border-tertiary);font-size:9px;color:var(--color-text-tertiary);padding-top:16px;text-align:center;';
+      tick.textContent=d;
+      wrapper.appendChild(tick);
+    }
+    var bar=document.createElement('div');
+    bar.className='g-bar '+(a.critica?'critica':'holgura');
+    bar.style.left=(a.te*cellW+2)+'px';
+    bar.style.width=(a.dur*cellW-4)+'px';
+    wrapper.appendChild(bar);
+    if(!a.critica&&a.holgura>0){
+      var ghost=document.createElement('div');
+      ghost.className='g-bar holgura-ghost';
+      ghost.style.left=((a.te+a.dur)*cellW+2)+'px';
+      ghost.style.width=(a.holgura*cellW-4)+'px';
+      wrapper.appendChild(ghost);
+    }
+    tdBar.appendChild(wrapper);
+    tr.appendChild(tdBar);
+    tb.appendChild(tr);
+  });
+}
+buildGantt();
+</script>
